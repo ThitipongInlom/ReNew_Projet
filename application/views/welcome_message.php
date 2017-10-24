@@ -114,10 +114,10 @@
 </div>
 <hr style="background: #ffffff">
 <div align="center">
-  <h4 style="color: #ffffff;">Problem Found
+  <h4 style="color: #ffffff;"><?php echo $this->lang->line('Problem_Found'); ?>
 </h4><br>
-<button type="button" class="btn btn-success btn-flat" data-toggle="modal" data-target="#Yes" data-backdrop="static">Yes</button>
-<button type="button" class="btn btn-danger btn-flat">No</button>
+<button type="button" class="btn btn-success btn-flat" data-toggle="modal" data-target="#Yes" data-backdrop="static"><?php echo $this->lang->line('yes'); ?></button>
+<button type="button" class="btn btn-danger btn-flat"><?php echo $this->lang->line('no'); ?></button>
 </div>
 
 <!-- Modal -->
@@ -126,14 +126,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="titlemodal">Problem Found</h4>
+        <h4 class="modal-title" id="titlemodal"><?php echo $this->lang->line('Problem_Found'); ?></h4>
       </div>
       <div class="modal-body">
         ...
       </div>
       <div class="modal-footer">
         <div align="center">
-          <button type="button" class="btn btn-primary">Send</button>
+          <button type="button" class="btn btn-primary"><?php echo $this->lang->line('senddata'); ?></button>
         </div>
       </div>
     </div>

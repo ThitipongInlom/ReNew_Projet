@@ -97,10 +97,10 @@ $db['default'] = array(
 
 $db['airlink'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '172.16.1.14',
 	'username' => 'root',
-	'password' => '',
-	'database' => '',
+	'password' => 'itminadthezign',
+	'database' => 'air_db',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
