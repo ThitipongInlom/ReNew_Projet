@@ -1,0 +1,25 @@
+<html>
+<head><title>SendDaTa</title></head>
+<body>
+$(if chap-id)
+<noscript>
+</noscript>
+$(endif)
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<form name="redirect" action="http://173.16.0.129/renew/" method="post">
+<input type="hidden" name="mac" value="$(mac)">
+<input type="hidden" name="ip" value="$(ip)">
+<input type="hidden" name="username" value="$(username)">
+<input type="hidden" value="continue" id="send">
+</form>
+<script language="JavaScript">
+<!--
+$(document).ready(function() {
+ document.redirect.submit();
+ $('#send').submit();
+ document.getElementById('#send').submit();
+});
+//-->
+</script></center>
+</body>
+</html>

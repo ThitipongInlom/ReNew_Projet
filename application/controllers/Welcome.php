@@ -12,9 +12,8 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		$result = $this->Get_airlink_model->Get_Data_model();
-		//echo $result;
-		//$this->load->view('welcome_message');
+		//$result = $this->Get_airlink_model->Get_Data_model();
+		$this->load->view('welcome_message');
 	}
 
 

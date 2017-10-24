@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '172.16.1.14',
-	'username' => 'root',
-	'password' => 'itminadthezign',
-	'database' => 'air_db',
+	'hostname' => 'localhost',
+	'username' => 'root2',
+	'password' => '',
+	'database' => 'new_projet',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
