@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
+  <title>Thezignhotel</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -14,9 +14,11 @@
   <link rel="stylesheet" href="<?php echo base_url().'assets/adminlte/bower_components/Ionicons/css/ionicons.min.css'; ?>">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url().'assets/adminlte/dist/css/AdminLTE.min.css'; ?>">
-   <!-- AdminLTE Skins. Choose a skin from the css/skins
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?php echo base_url().'assets/adminlte/dist/css/skins/_all-skins.min.css'; ?>">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="<?php echo base_url().'assets/adminlte/plugins/iCheck/square/blue.css'; ?>">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,18 +36,12 @@
        -moz-appearance:none;
             appearance:none;
 }
-
-.cc-selector-2 input{
-    position:absolute;
-    z-index:999;
-}
-
-.happy{background-image:url(<?php echo base_url().'assets/icon/4.png' ; ?>);}
+.happy{background-image:url(<?php echo base_url().'assets/icon/4_New.png' ; ?>);}
 .confused{background-image:url(<?php echo base_url().'assets/icon/3.png'; ?>);}
-.sad{background-image:url(<?php echo base_url().'assets/icon/2.png'; ?>);}
+.sad{background-image:url(<?php echo base_url().'assets/icon/2_New.png'; ?>);}
 
-.cc-selector-2 input:active +.drinkcard-cc, .cc-selector input:active +.drinkcard-cc{opacity: .9;}
-.cc-selector-2 input:checked +.drinkcard-cc, .cc-selector input:checked +.drinkcard-cc{
+.cc-selector input:active +.drinkcard-cc{opacity: .9;}
+.cc-selector input:checked +.drinkcard-cc{
     -webkit-filter: none;
        -moz-filter: none;
             filter: none;
@@ -59,9 +55,9 @@
     -webkit-transition: all 100ms ease-in;
        -moz-transition: all 100ms ease-in;
             transition: all 100ms ease-in;
-    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
-       -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
-            filter: brightness(1.8) grayscale(1) opacity(.7);
+    -webkit-filter: brightness(75%) opacity(75%) grayscale(75%);
+       -moz-filter: brightness(75%) opacity(75%) grayscale(75%);
+            filter: brightness(75%) opacity(75%) grayscale(75%);
 }
 .drinkcard-cc:hover{
     -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
@@ -105,7 +101,7 @@
         <h4 style="color: #ffffff;"><?php echo $this->lang->line('select_one_of_satisfactory_level_below'); ?>
 </h4><br>
         <input id="happy" type="radio" name="levelbelow" value="happy" />
-        <label class="drinkcard-cc happy" for="happy"></label>
+        <label class="drinkcard-cc happy changed" for="happy"></label>
         <input id="confused" type="radio" name="levelbelow" value="confused" />
         <label class="drinkcard-cc confused" for="confused"></label>
         <input id="sad" type="radio" name="levelbelow" value="sad" />
@@ -117,7 +113,7 @@
   <h4 style="color: #ffffff;"><?php echo $this->lang->line('Problem_Found'); ?>
 </h4><br>
 <button type="button" class="btn btn-success btn-flat" data-toggle="modal" data-target="#Yes" data-backdrop="static"><?php echo $this->lang->line('yes'); ?></button>
-<button type="button" class="btn btn-danger btn-flat"><?php echo $this->lang->line('no'); ?></button>
+<button type="button" class="btn btn-danger btn-flat" id="no"><?php echo $this->lang->line('no'); ?></button>
 </div>
 
 <!-- Modal -->
@@ -129,7 +125,33 @@
         <h4 class="modal-title" id="titlemodal"><?php echo $this->lang->line('Problem_Found'); ?></h4>
       </div>
       <div class="modal-body">
-        ...
+      <div class="box box-info">
+            <div class="box-header with-border">
+            </div>
+          <div class="box-body">
+             <!-- checkbox -->
+          <div class="checkbox icheck">
+              <input type="checkbox" class="check_data" id="room">
+              <label for="room" style="padding-left: 10px;"><?php echo $this->lang->line('room'); ?></label>
+          </div>
+          <div class="checkbox icheck">
+              <input type="checkbox" class="check_data" id="Spa">
+              <label for="Spa" style="padding-left: 10px;"><?php echo $this->lang->line('spa'); ?></label>
+          </div>
+          <div class="checkbox icheck">
+              <input type="checkbox" class="check_data" id="fitness">
+              <label for="fitness" style="padding-left: 10px;"><?php echo $this->lang->line('fitness'); ?></label>
+          </div>
+          <div class="checkbox icheck">
+              <input type="checkbox" class="check_data" id="restaurant">
+              <label for="restaurant" style="padding-left: 10px;"><?php echo $this->lang->line('restaurant'); ?></label>
+          </div>
+          <div class="form-group">
+                  <label><?php echo $this->lang->line('other'); ?></label>
+                  <textarea class="form-control" rows="3" placeholder="<?php echo $this->lang->line('other');echo ' ...';?>"></textarea>
+          </div>
+          </div>
+      </div>
       </div>
       <div class="modal-footer">
         <div align="center">
@@ -146,6 +168,18 @@
 <script src="<?php echo base_url().'assets/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js'; ?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url().'assets/adminlte/dist/js/adminlte.min.js'; ?>"></script>
-
+<!-- iCheck 1.0.1 -->
+<script src="<?php echo base_url().'assets/adminlte/plugins/iCheck/icheck.min.js'; ?>"></script>
+<!-- Js Check No Send -->
+<script src="<?php echo base_url().'assets/js_ajax/ajax_no_data.js'; ?>"></script>
+<script type="text/javascript">
+$(function () {
+    $('.check_data').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
 </body>
 </html>

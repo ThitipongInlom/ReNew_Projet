@@ -5,5 +5,11 @@ $lang['select_one_of_satisfactory_level_below'] = 'Select Row Satisfactory Level
 $lang['Problem_Found'] = 'Problem Found';
 $lang['no'] = 'No';
 $lang['senddata'] = 'Send';
+$lang['other'] = 'Other';
+$lang['room'] = 'Room';
+$lang['spa'] = 'Spa';
+$lang['fitness'] = 'Fitness';
+$lang['restaurant'] = 'Restaurant';
+$lang['thank_you'] = 'Thank You';
 
 ?>

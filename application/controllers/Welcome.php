@@ -7,13 +7,19 @@ class Welcome extends CI_Controller {
 	{
 		parent::__construct();   	
 		$this->load->model('Get_airlink_model');
+		$this->load->model('Save_Ajax');
 		$this->lang->load('message','english'); 
 	}
 
 	public function index()
 	{
-		//$result = $this->Get_airlink_model->Get_Data_model();
+		$result = $this->Get_airlink_model->Get_Data_model();
 		$this->load->view('welcome_message');
+	}
+
+	public function Click_No()
+	{
+		$this->Save_Ajax->Save_DaTa_No();
 	}
 
 

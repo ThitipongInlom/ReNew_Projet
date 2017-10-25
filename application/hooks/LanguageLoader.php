@@ -3,6 +3,7 @@ class LanguageLoader
 {
     function initialize() {
         $ci =& get_instance();
+        $ci->load->library('session');
         $ci->load->helper('language');
         $siteLang = $ci->session->userdata('site_lang');
         if ($siteLang) {

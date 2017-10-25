@@ -7,22 +7,23 @@ class Choose
         $this->CI->load->database();
         $this->CI->load->library('session');
         $this->CI->load->model('Get_airlink_model');
-        $this->CI->load->model('Get_set_choose');
     }
 
-    public function Choose_user($data)
+    public function Choose_user($data,$Mikrotik)
     {
     	$result = $this->CI->Get_airlink_model->unpack_serialize($data->profile);
-    	$this->CI->db->select('*');
-        $this->CI->db->from('set_level_below');
-        $query = $this->CI->db->get();
-        foreach ($query->result_array() as $row)
-		{	
 
-			
-		};	
-	//print_r($this->CI->session->username);	
+    	$this->CI->db->where("(Level_Below_data='".$Mikrotik['username']."' OR Level_Below_data='".$result['billingplan']."')", NULL, FALSE);
+    	$query = $this->CI->db->get('set_level_below');
+    	$row = $query->num_rows();
+    	// $row == 1  Go To Return
+    	if ($row ==1) {
+    		return;
+    	}else{
+    		header("Location:  ../popup/index.html");
+    	}	
     }
+
 
 }
 ?>
