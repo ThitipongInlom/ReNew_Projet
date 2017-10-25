@@ -148,14 +148,14 @@
           </div>
           <div class="form-group">
                   <label><?php echo $this->lang->line('other'); ?></label>
-                  <textarea class="form-control" rows="3" placeholder="<?php echo $this->lang->line('other');echo ' ...';?>"></textarea>
+                  <textarea class="form-control" id="other" rows="3" placeholder="<?php echo $this->lang->line('other');echo ' ...';?>"></textarea>
           </div>
           </div>
       </div>
       </div>
       <div class="modal-footer">
         <div align="center">
-          <button type="button" class="btn btn-primary"><?php echo $this->lang->line('senddata'); ?></button>
+          <button type="button" class="btn btn-primary" id="send_data"><?php echo $this->lang->line('senddata'); ?></button>
         </div>
       </div>
     </div>
@@ -172,6 +172,8 @@
 <script src="<?php echo base_url().'assets/adminlte/plugins/iCheck/icheck.min.js'; ?>"></script>
 <!-- Js Check No Send -->
 <script src="<?php echo base_url().'assets/js_ajax/ajax_no_data.js'; ?>"></script>
+<!-- Js Check Yes Send -->
+<script src="<?php echo base_url().'assets/js_ajax/ajax_yes_data.js'; ?>"></script>
 <script type="text/javascript">
 $(function () {
     $('.check_data').iCheck({

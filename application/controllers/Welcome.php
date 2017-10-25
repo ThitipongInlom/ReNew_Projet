@@ -22,5 +22,10 @@ class Welcome extends CI_Controller {
 		$this->Save_Ajax->Save_DaTa_No();
 	}
 
+	public function Click_Yes()
+	{
+		$this->Save_Ajax->Save_DaTa_Yes();
+	}
+
 
 }
