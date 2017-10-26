@@ -4,13 +4,13 @@ $('#no').click(function() {
 	var sad = document.getElementById('sad');
 	var data_check = '';
 	if (happy.checked) {
-		var data_check = '1';
+		var data_check = '3';
 	} 
 	if (confused.checked) {
 		var data_check = '2';
 	}
 	if (sad.checked) {
-		var data_check = '3';
+		var data_check = '1';
 	}
 	// Go TheZign
 	if (data_check=='') {

@@ -8,7 +8,16 @@ class Get_airlink_model extends CI_Model {
 			parent::__construct();
 			$this->load->library('session');
 			$this->load->library('choose');
-		}	
+		}
+
+	public function Check_Post()
+		{
+			if (empty($_POST) or empty($this->session->Mikrotik)) {
+				header("Location:  ../popup/index.html");
+			}else{
+				return;
+			}
+		}		
 
 	public function Get_Data_model()
 	{
@@ -30,6 +39,7 @@ class Get_airlink_model extends CI_Model {
 		$result = $this->unpack_serialize($row->profile);
 		$this->session->set_userdata('Mikrotik', $Mikrotik);	
 		$this->session->set_userdata('Data_Web', $result);
+		$this->Check_Post();
 		}
 		return;
 	}

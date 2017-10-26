@@ -19,6 +19,10 @@
   <link rel="stylesheet" href="<?php echo base_url().'assets/adminlte/dist/css/skins/_all-skins.min.css'; ?>">
   <!-- iCheck -->
   <link rel="stylesheet" href="<?php echo base_url().'assets/adminlte/plugins/iCheck/square/blue.css'; ?>">
+  <!-- include the style -->
+  <link rel="stylesheet" href="<?php echo base_url().'assets/alertify/css/alertify.min.css'; ?>" />
+  <!-- include a theme -->
+  <link rel="stylesheet" href="<?php echo base_url().'assets/alertify/css/themes/bootstrap.min.css'; ?>" />
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -65,33 +69,42 @@
             filter: brightness(1.2) grayscale(.5) opacity(.9);
 }
 </style>
-<link rel="shortcut icon" href="<?php echo base_url().'assets/icon/icon.ico'; ?>" />  
+<link rel="shortcut icon" href="<?php echo base_url().'assets/icon/icon.ico'; ?>" /> 
 </head>
 <body class="hold-transition " style="background: black;">
 <!-- Head -->  
 <div class="box box-solid">
             <div class="box-header with-border" style="background-color: #ce5008;">
-            <div class="clearfix">
-                <a href="<?php echo base_url(); ?>index.php/Language/switchLang/english" >
-                <button class="btn float-left
+            <div class="row"> 
+            <div class="col-md-2 col-xs-7 col-sm-6">
+                <a class="btn float-left 
                 <?php  
                 if($this->session->site_lang == 'english'){echo 'btn-info';}
                 else{echo 'btn-default';}
-                ?>" type="submit" name="lang" value="en"><img src="<?php echo base_url().'assets/icon/en.png'; ?>" class="rounded" width="24" height="24"></button>
-                </a>
-                <a href="<?php echo base_url(); ?>index.php/Language/switchLang/thai" >
-                <button class="btn float-left
+                ?>" href="<?php echo base_url(); ?>index.php/Language/switchLang/english" role="button" type="submit" name="lang" value="en">
+                <img src="<?php echo base_url().'assets/icon/en.png'; ?>" class="rounded" width="24" height="24"></a>
+                <a class="btn float-left 
                 <?php  
                 if($this->session->site_lang == 'thai'){echo 'btn-info';}
                 else{echo 'btn-default';}
-                ?>" type="submit" name="lang" value="th"><img src="<?php echo base_url().'assets/icon/th.png'; ?>" class="rounded" width="24" height="24"></button>
-              </a>
-             </div>
+                ?>" href="<?php echo base_url(); ?>index.php/Language/switchLang/thai" role="button" type="submit" name="lang" value="th">
+                <img src="<?php echo base_url().'assets/icon/th.png'; ?>" class="rounded logo" width="24" height="24"></a>
+            </div>
+            <div class="col-md-1 col-md-offset-9  col-xs-2 col-xs-offset-1 col-sm-2 col-sm-offset-4">
+              <img src="<?php echo base_url().'assets/icon/logo.png'; ?>" alt="Logo" width="80">
+            </div>
+            </div> 
             </div>
             <!-- /.box-header -->
             <div class="box-body" style="background-color: #ff5500;">
-              Mikrotik DaTa
-              <?php print_r($this->session->all_userdata()); ?>
+            <div class="col-md-4 col-md-offset-4 col-xs-12">
+                <div class="box box-info">
+            <div class="box-body" align="center">
+              <?php echo $this->lang->line('hi'); echo ' '; echo $this->session->Data_Web['firstname'];?>
+            </div>
+            <!-- /.box-body -->
+            </div>
+              </div>
             </div>
             <!-- /.box-body -->
 </div>
@@ -112,7 +125,7 @@
 <div align="center">
   <h4 style="color: #ffffff;"><?php echo $this->lang->line('Problem_Found'); ?>
 </h4><br>
-<button type="button" class="btn btn-success btn-flat" data-toggle="modal" data-target="#Yes" data-backdrop="static"><?php echo $this->lang->line('yes'); ?></button>
+<button type="button" class="btn btn-success btn-flat" id="yes_open_model" ><?php echo $this->lang->line('yes'); ?></button>
 <button type="button" class="btn btn-danger btn-flat" id="no"><?php echo $this->lang->line('no'); ?></button>
 </div>
 
@@ -174,6 +187,10 @@
 <script src="<?php echo base_url().'assets/js_ajax/ajax_no_data.js'; ?>"></script>
 <!-- Js Check Yes Send -->
 <script src="<?php echo base_url().'assets/js_ajax/ajax_yes_data.js'; ?>"></script>
+<!-- JS Click_ Yes -->
+<script src="<?php echo base_url().'assets/js_ajax/Click_yes.js'; ?>"></script>
+<!-- include the script -->
+<script src="<?php echo base_url().'assets/alertify/alertify.min.js'; ?>"></script>
 <script type="text/javascript">
 $(function () {
     $('.check_data').iCheck({

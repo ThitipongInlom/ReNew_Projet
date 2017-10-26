@@ -11,5 +11,8 @@ $lang['spa'] = 'Spa';
 $lang['fitness'] = 'Fitness';
 $lang['restaurant'] = 'Restaurant';
 $lang['thank_you'] = 'Thank You';
+$lang['hi'] = 'Hi';
+$lang['alert'] = 'Alert';
+
 
 ?>

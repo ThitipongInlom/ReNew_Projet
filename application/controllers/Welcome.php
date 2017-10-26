@@ -27,5 +27,15 @@ class Welcome extends CI_Controller {
 		$this->Save_Ajax->Save_DaTa_Yes();
 	}
 
+	public function Data_Alert()
+	{	
+		$Head_Data = $this->lang->line('alert');
+		$Text_Data = $this->lang->line('select_one_of_satisfactory_level_below');
+		$arrt = array(
+			'Head_Data' => $Head_Data,
+			'Text_Data' => $Text_Data);
+		echo json_encode($arrt);
+	}
+
 
 }

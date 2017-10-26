@@ -25,8 +25,21 @@ class Save_Ajax extends CI_Model {
 
 	public function Save_DaTa_Yes()
 		{
+			$Level = $this->input->post('data_check');
 			$today = date("Y-m-d H:i:s");
-			print_r($_POST);
+			$data = array(
+			'Yes_comment_level'  => $Level, 
+			'Yes_comment_name'   => $this->session->Data_Web['firstname'],
+			'Yes_comment_room'   => $this->session->Data_Web['room'],
+			'Yes_comment_grop'   => $this->session->Data_Web['billingplan'],
+			'Yes_comment_emp_id' => $this->session->Data_Web['personal_id'],
+			'Yes_comment_country'=> $this->session->Data_Web['country'],
+			'Yes_comment_instay' => $this->session->Data_Web['inout'],
+			'Yes_comment_web'    => $this->session->Data_Web['web'],
+			'Yes_comment_time'   => $today,
+			'Yes_comment_mac'    => $this->session->Mikrotik['mac']);
+			$this->db->insert('yes_comment', $data);
+			echo $this->lang->line('thank_you');
 		}	
 
 }

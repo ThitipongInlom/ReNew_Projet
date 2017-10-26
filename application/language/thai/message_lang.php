@@ -11,5 +11,7 @@ $lang['spa'] = 'สปา';
 $lang['fitness'] = 'ฟิตเนส';
 $lang['restaurant'] = 'ร้านอาหาร';
 $lang['thank_you'] = 'ขอบคุณครับ';
+$lang['hi'] = 'สวัสดี';
+$lang['alert'] = 'แจ้งเตือน';
 
 ?>

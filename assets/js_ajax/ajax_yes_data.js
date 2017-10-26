@@ -5,13 +5,13 @@ $('#send_data').click(function() {
 	var data_check = '';
 	// Level Below
 	if (happy.checked) {
-		var data_check = '1';
+		var data_check = '3';
 	} 
 	if (confused.checked) {
 		var data_check = '2';
 	}
 	if (sad.checked) {
-		var data_check = '3';
+		var data_check = '1';
 	}
 	// Check Data
 	var room = document.getElementById('room');
@@ -43,9 +43,10 @@ $('#send_data').click(function() {
 		url: 'index.php/Welcome/Click_Yes',
 		type: 'POST',
 		cache: false,
-		data: {'room':room,'spa':spa,'fitness':fitness,'restaurant':restaurant,'other':other},
+		data: {'data_check':data_check,'room':room,'spa':spa,'fitness':fitness,'restaurant':restaurant,'other':other},
 		success: function(result){
 			alert(result);
+			//window.location = '../popup/index.html';
 		}	
 	});
 });
