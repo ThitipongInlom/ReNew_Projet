@@ -30,10 +30,12 @@ class Welcome extends CI_Controller {
 	public function Data_Alert()
 	{	
 		$Head_Data = $this->lang->line('alert');
-		$Text_Data = $this->lang->line('select_one_of_satisfactory_level_below');
+		$Text_Data_Select = $this->lang->line('select_one_of_satisfactory_level_below');
+		$Text_Data_Thank = $this->lang->line('thank_you');
 		$arrt = array(
 			'Head_Data' => $Head_Data,
-			'Text_Data' => $Text_Data);
+			'Text_Data_Select' => $Text_Data_Select,
+			'Text_Data_Thank' => $Text_Data_Thank);
 		echo json_encode($arrt);
 	}
 

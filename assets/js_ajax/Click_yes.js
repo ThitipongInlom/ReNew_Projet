@@ -18,7 +18,8 @@ $(document).ready(function() {
 		$.getJSON('index.php/Welcome/Data_Alert', function(result) {
     	alertify.defaults.theme.ok = "btn btn-primary";
 		alertify.defaults.theme.cancel = "btn btn-danger";
-		alertify.alert(result.Head_Data, result.Text_Data);
+		alertify.alert(result.Head_Data, result.Text_Data_Select);
+		console.log(result);
     	});
 	}else{
 			$("#yes_open_model").attr('data-toggle', 'modal');

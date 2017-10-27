@@ -45,8 +45,15 @@ $('#send_data').click(function() {
 		cache: false,
 		data: {'data_check':data_check,'room':room,'spa':spa,'fitness':fitness,'restaurant':restaurant,'other':other},
 		success: function(result){
-			alert(result);
-			//window.location = '../popup/index.html';
+			$.getJSON('index.php/Welcome/Data_Alert', function(result) {
+	    	alertify.defaults.theme.ok = "btn btn-primary";
+			alertify.defaults.theme.cancel = "btn btn-danger";
+			alertify.alert(result.Head_Data, result.Text_Data_Thank,function () {
+			// Send To Thezign
+			window.location = '../popup/index.html';
+			});
+			});
+
 		}	
 	});
 });

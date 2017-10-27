@@ -41,7 +41,11 @@ class Get_airlink_model extends CI_Model {
 		$this->session->set_userdata('Data_Web', $result);
 		$this->Check_Post();
 		}
-		return;
+		if (isset($this->session->Mikrotik)) {
+			return;
+		}else{
+			header("Location:  ../popup/index.html");
+		}
 	}
 
 	public function unpack_serialize($data)
