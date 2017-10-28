@@ -12,12 +12,25 @@ class Get_airlink_model extends CI_Model {
 
 	public function Check_Post()
 		{
-			if (empty($_POST) or empty($this->session->Mikrotik)) {
+			if (!($_POST) or !($this->session->Mikrotik)) {
 				header("Location:  ../popup/index.html");
 			}else{
 				return;
 			}
-		}		
+		}
+
+	public function Check_mobile()
+			{
+			$browser = $this->agent->browser();
+			$mobile = $this->agent->mobile();
+			$platform = $this->agent->platform();
+			if ($browser == 'Chrome' AND $platform == 'Android') {
+				return;
+				//redirect('Ios/index', 'refresh');
+			}else{
+				header("Location:  ../popup/index.html");
+			}
+			}			
 
 	public function Get_Data_model()
 	{
@@ -25,9 +38,12 @@ class Get_airlink_model extends CI_Model {
 		$mac = $this->input->post('mac');
 		$ip  = $this->input->post('ip');
 		$username = $this->input->post('username');
-		
+
+		// Check Mobile
+		$this->Check_mobile();
+
 		// Check User
-		if (empty($this->session->Mikrotik)) {
+		if (!($this->session->Mikrotik)) {
 		$sql = "SELECT * FROM voucher WHERE username ='".$username."'";
 		$query = $airlink->query($sql);
 		$row = $query->row();
@@ -35,13 +51,17 @@ class Get_airlink_model extends CI_Model {
 			'username' => $username, 
 			'ip'       => $ip,
 			'mac'      => $mac);
-		$this->choose->Choose_user($row,$Mikrotik);
+		$relogin = $this->choose->Choose_user($row,$Mikrotik);
+		if ($relogin == '1') {
+		$relogin = array('relogin' => '1');
+        $this->session->set_userdata('relogin' , $relogin);
+		}
 		$result = $this->unpack_serialize($row->profile);
 		$this->session->set_userdata('Mikrotik', $Mikrotik);	
 		$this->session->set_userdata('Data_Web', $result);
 		$this->Check_Post();
 		}
-		if (isset($this->session->Mikrotik)) {
+		if (isset($this->session->Mikrotik) AND isset($this->session->relogin)) {
 			return;
 		}else{
 			header("Location:  ../popup/index.html");

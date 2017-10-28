@@ -13,15 +13,17 @@ class Save_Ajax extends CI_Model {
 			$Level = $this->input->post('data_send');
 			$today = date("Y-m-d H:i:s");
 			$data = array(
-			'No_comment_level' => $Level,	
-			'No_comment_username' => $this->session->Mikrotik['username'],
-        	'No_comment_room' => $this->session->Data_Web['room'],
-        	'No_comment_grop' => $this->session->Data_Web['billingplan'],
-       		'No_comment_Name' => $this->session->Data_Web['firstname'],
-       		'No_comment_Mac'  => $this->session->Mikrotik['mac'],
-       		'No_comment_instay' => $this->session->Data_Web['inout'],
-       		'No_comment_Time' => $today);
-			$this->db->insert('no_comment', $data);
+			'Yes_comment_level' => $Level,	
+			'Yes_comment_username' => $this->session->Mikrotik['username'],
+        	'Yes_comment_room' => $this->session->Data_Web['room'],
+        	'Yes_comment_grop' => $this->session->Data_Web['billingplan'],
+       		'Yes_comment_name' => $this->session->Data_Web['firstname'],
+       		'Yes_comment_country'=> $this->session->Data_Web['country'],
+       		'Yes_comment_mac'  => $this->session->Mikrotik['mac'],
+       		'Yes_comment_instay' => $this->session->Data_Web['inout'],
+       		'Yes_comment_type' => '0',
+       		'Yes_comment_time' => $today);
+			$this->db->insert('yes_comment', $data);
 		}	
 
 	public function Save_DaTa_Yes()
@@ -48,6 +50,7 @@ class Save_Ajax extends CI_Model {
 			'Yes_comment_country'=> $this->session->Data_Web['country'],
 			'Yes_comment_instay' => $this->session->Data_Web['inout'],
 			'Yes_comment_web'    => $this->session->Data_Web['web'],
+			'Yes_comment_type' => '1',
 			'Yes_comment_time'   => $today,
 			'Yes_comment_mac'    => $this->session->Mikrotik['mac']);
 			$this->db->insert('yes_comment', $data);
