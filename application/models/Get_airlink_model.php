@@ -12,7 +12,7 @@ class Get_airlink_model extends CI_Model {
 
 	public function Check_Post()
 		{
-			if (!($_POST) or !($this->session->Mikrotik)) {
+			if (empty($_POST) or empty($this->session->Mikrotik)) {
 				header("Location:  ../popup/index.html");
 			}else{
 				return;
@@ -27,13 +27,30 @@ class Get_airlink_model extends CI_Model {
 			if ($browser == 'Chrome' AND $platform == 'Android') {
 				return;
 				//redirect('Ios/index', 'refresh');
-			}else{
+			}elseif ($browser == 'Safari' AND $platform == 'iOS') {
+				$data = array(
+					'test' =>'Test');
+				$this->session->set_userdata('Mikrotik', $data);
+				$this->ios_Go();
+			}elseif ($browser == 'Chrome' AND $platform == 'iOS') {
+				return;
+			}
+			else{
 				header("Location:  ../popup/index.html");
 			}
-			}			
+			}		
+
+	public function ios_Go()
+				{	
+					//header("Location:  ../popup/index.html");
+					redirect('Ios/index', 'refresh');
+				}			
 
 	public function Get_Data_model()
 	{
+		$browser = $this->agent->browser();
+		$mobile = $this->agent->mobile();
+		$platform = $this->agent->platform();
 		$airlink = $this->load->database('airlink', TRUE);
 		$mac = $this->input->post('mac');
 		$ip  = $this->input->post('ip');
@@ -43,7 +60,7 @@ class Get_airlink_model extends CI_Model {
 		$this->Check_mobile();
 
 		// Check User
-		if (!($this->session->Mikrotik)) {
+		if (empty($this->session->Mikrotik)) {
 		$sql = "SELECT * FROM voucher WHERE username ='".$username."'";
 		$query = $airlink->query($sql);
 		$row = $query->row();
@@ -51,17 +68,16 @@ class Get_airlink_model extends CI_Model {
 			'username' => $username, 
 			'ip'       => $ip,
 			'mac'      => $mac);
-		$relogin = $this->choose->Choose_user($row,$Mikrotik);
-		if ($relogin == '1') {
-		$relogin = array('relogin' => '1');
-        $this->session->set_userdata('relogin' , $relogin);
-		}
+	    $this->choose->Choose_user($row,$Mikrotik);
 		$result = $this->unpack_serialize($row->profile);
 		$this->session->set_userdata('Mikrotik', $Mikrotik);	
 		$this->session->set_userdata('Data_Web', $result);
 		$this->Check_Post();
 		}
-		if (isset($this->session->Mikrotik) AND isset($this->session->relogin)) {
+		
+		//AND isset($this->session->relogin)
+
+		if (isset($this->session->Mikrotik) ) {
 			return;
 		}else{
 			header("Location:  ../popup/index.html");

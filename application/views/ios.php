@@ -26,6 +26,20 @@
 </head>
 <body>
 	<button type="button" class="btn btn-danger btn-flat" id="alert">Alert</button>
+	<?php  
+	$browser = $this->agent->browser();
+	$mobile = $this->agent->mobile();
+	$platform = $this->agent->platform();
+
+	echo $browser;
+	echo '<br>';
+	echo $mobile;
+	echo '<br>';
+	echo $platform;
+	echo '<pre>';
+	print_r($this->session->all_userdata());
+
+	?>
 	<!-- jQuery 3 -->
 	<script src="<?php echo base_url().'assets/adminlte/bower_components/jquery/dist/jquery.min.js'; ?>"></script>
 	<!-- Bootstrap 3.3.7 -->

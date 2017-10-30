@@ -18,7 +18,7 @@ class Choose
     	$row = $query->num_rows();
     	// $row == 1  Go To Return
     	if ($row ==1) {
-    		return $row;
+    		return;
     	}else{
     		header("Location:  ../popup/index.html");
     	}	
