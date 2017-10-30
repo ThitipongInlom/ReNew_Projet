@@ -70,8 +70,8 @@ if (is_array($filters)) {
 }   
 
 if($_REQUEST['act']=="load"){
-    $con_add=($id!="")?" and data_id='$id' ":"";
-    $sql="SELECT * from data where 0=0 $con_add ";
+    $con_add=($id!="")?" and Yes_comment_id='$id' ":"";
+    $sql="SELECT * from yes_comment where 0=0 $con_add ";
     $q=new dbMan(trim(text_get($connect_mysql253)));        
     $q->query($sql);
     $data=json_encode($q->fetch_object());
@@ -83,8 +83,8 @@ if($_GET["act"]=='grid'){
     
     $k=trim($_POST["keyword"]);
     $where.=($k!='')?" and (Yes_comment_name like '%$k%' or Yes_comment_room like '%$k%' or Yes_comment_grop like '%$k%' or Yes_comment_web like '%$k%' 
-        or Yes_comment_mac like '%$k%' or Yes_comment_id like '%$k%') ":""; 
-    $sql="select * from yes_comment where 0=0 $where ";
+        or Yes_comment_mac like '%$k%' or Yes_comment_id like '%$k%' or Yes_comment_time like '%$k%') ":"";    
+    $sql="select * from yes_comment where 0=0 $where";
     $sql_sort=($sort != "")?" ORDER BY ".$sort." ".$dir:"";
     $sql_limit=($nolimit != "")?"":" LIMIT ".$start.",".$count;
         
@@ -92,6 +92,7 @@ if($_GET["act"]=='grid'){
     $q->query("select * from ($sql) a where 0=0 $where $sql_sort $sql_limit");
     $data=($q->fetch_array());
     $datashow = json_encode($data);
+
     $sql_total="select count(1) from ($sql) a where 0=0 $where $sql_sort ";
     $q->query($sql_total);
     $total = $q->fetch_array();

@@ -24,32 +24,44 @@ $task_date=Date("Y-m-d");
 $fields="
             {name: 'Yes_comment_id' , type: 'int' }, 
             {name: 'Yes_comment_level' , type: 'string'}, 
-            {name: 'Yes_comment_name' , type: 'string' }, 
             {name: 'Yes_comment_username' , type: 'string' },
-            {name: 'Yes_comment_room' , type: 'string' }, 
+            {name: 'Yes_comment_name' , type: 'string' }, 
+            {name: 'Yes_comment_room' , type: 'string' },
+            {name: 'Yes_comment_roombox' , type: 'string' },
+            {name: 'Yes_comment_spa' , type: 'string' }, 
+            {name: 'Yes_comment_fitness' , type: 'string' },
+            {name: 'Yes_comment_restaurant' , type: 'string' },
+            {name: 'Yes_comment_other' , type: 'string' },
             {name: 'Yes_comment_grop' , type: 'string' }, 
             {name: 'Yes_comment_emp_id' , type: 'string' }, 
             {name: 'Yes_comment_country' , type: 'string' }, 
             {name: 'Yes_comment_instay' , type: 'string' }, 
             {name: 'Yes_comment_web' , type: 'string' }, 
-            {name: 'Yes_comment_time' , type: 'string' }, 
-            {name: 'Yes_comment_mac' , type: 'string' }
+            {name: 'Yes_comment_time' , type: 'date' }, 
+            {name: 'Yes_comment_mac' , type: 'string' },
+            {name: 'Yes_comment_type' , type: 'string' }
 
 ";
 
 $filters="
             {dataIndex: 'Yes_comment_id' , type: 'string' }, 
             {dataIndex: 'Yes_comment_level' , type: 'string' }, 
-            {dataIndex: 'Yes_comment_name' , type: 'string' }, 
             {dataIndex: 'Yes_comment_username' , type: 'string' },
+            {dataIndex: 'Yes_comment_name' , type: 'string' }, 
             {dataIndex: 'Yes_comment_room' , type: 'string' }, 
+            {dataIndex: 'Yes_comment_roombox' , type: 'string' }, 
+            {dataIndex: 'Yes_comment_spa' , type: 'string' },
+            {dataIndex: 'Yes_comment_fitness' , type: 'string' }, 
+            {dataIndex: 'Yes_comment_restaurant' , type: 'string' }, 
+            {dataIndex: 'Yes_comment_other' , type: 'string' }, 
             {dataIndex: 'Yes_comment_grop' , type: 'string' }, 
             {dataIndex: 'Yes_comment_emp_id' , type: 'string' }, 
             {dataIndex: 'Yes_comment_country' , type: 'string' }, 
             {dataIndex: 'Yes_comment_instay' , type: 'string' }, 
             {dataIndex: 'Yes_comment_web' , type: 'string' }, 
-            {dataIndex: 'Yes_comment_time' , type: 'string' }, 
-            {dataIndex: 'Yes_comment_mac' , type: 'string' } 
+            {dataIndex: 'Yes_comment_time' , type: 'date'}, 
+            {dataIndex: 'Yes_comment_mac' , type: 'string' }, 
+            {dataIndex: 'Yes_comment_type' , type: 'string' } 
 ";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -88,6 +100,53 @@ Ext.onReady(function(){
         	return '<div class="control" control="popup" ><span style="color:red;font-weight:bold">' + bad + '</span></div>';}
     }
 
+    var check_pro = function (v,para,r) {
+    	var pro = r.data['Yes_comment_type'];
+    	if (pro =='1') 
+    	{
+    		var text = 'พบปัญหา';
+    		return '<div class="control" control="popup" ><span style="color:red;font-weight:bold">' + text + '</span></div>';
+    	}
+    	if (pro =='0') 
+    	{
+    		var text = 'ไม่พบปัญหา';
+    		return '<div class="control" control="popup" ><span style="color:green;font-weight:bold">' + text + '</span></div>';
+    	}
+    }
+
+    var check_status = function(v,para,r) {
+    	var room = r.data['Yes_comment_roombox'];
+    	var spa  = r.data['Yes_comment_spa'];
+    	var fitness = r.data['Yes_comment_fitness'];
+    	var restaurant = r.data['Yes_comment_restaurant'];
+    	if (room =='1') 
+    		{
+    			var text_room = '[Room]';
+    		}else{
+    			var text_room = '';
+    		}
+    	if (spa =='1') 
+    		{
+    			var text_spa = '[Spa]';
+    		}else{
+    			var text_spa = '';
+    		}	
+    	if (fitness =='1') 
+    		{
+    			var text_fitness = '[Fitness]';
+    		}else{
+    			var text_fitness = '';
+    		}	
+    	if (restaurant =='1') 
+    		{
+    			var text_restaurant = '[Restaurant]';
+    		}else{
+    			var text_restaurant = '';
+    		}	
+    	return '<div class="control" control="popup" ><span style="color:red;font-weight:bold">'+ text_room + text_spa + text_fitness + text_restaurant +'</span></div>';	
+    }
+
+
 	Ext.QuickTips.init();
 	Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 	Ext.form.Field.prototype.msgTarget = "side"; //under  side
@@ -115,22 +174,25 @@ Ext.onReady(function(){
 //********************************************  Grid Store *********************************************
 	var mydatastore = new Ext.data.GroupingStore({
 		proxy: new Ext.data.HttpProxy({url: '<?=$urlgrid;?>',method: 'POST'}),
-		reader: new Ext.data.JsonReader( { root: 'data',totalProperty: 'data_id'}, [<?=$fields;?>]),
+		reader: new Ext.data.JsonReader( { root: 'data',totalProperty: 'Yes_comment_id'}, [<?=$fields;?>]),
 		remoteSort: true, sortInfo:{field: 'Yes_comment_id', direction: "DESC"}
     });
     var filters = new Ext.ux.grid.GridFilters({local: false,filters:[<?=$filters;?>]}); 
 	var progress= new Ext.ux.ProgressBarPager();
 				
     var createColModel = function (){
-        var columns = [         
-			 {dataIndex: 'Yes_comment_id',id: 'Yes_comment_id',width:5,header: 'ID',summaryType: 'count',summaryRenderer: function(v, params, data){ return '('+v+')';} },
-			 {dataIndex: 'Yes_comment_time', id: 'Yes_comment_time', width:13, header: 'วันที่แจ้งปัญหา', renderer:show_click},
-			 {dataIndex: 'Yes_comment_name', id: 'Yes_comment_name', width:20, header: 'ชื่อลูกค้า', renderer:show_click},
-			 {dataIndex: 'Yes_comment_username', id: 'Yes_comment_username', width:20, header: 'Username', renderer:show_click},
-			 {dataIndex: 'Yes_comment_room', id: 'Yes_comment_room', width:15, header: 'ลูกค้าห้อง', renderer:show_click},
-			 {dataIndex: 'Yes_comment_country', id: 'Yes_comment_country', width:15, header: 'สัญชาติ', renderer:show_click},
-			 {dataIndex: 'Yes_comment_level', id: 'Yes_comment_level', width:15, header: 'สถานะแสดงความพึงพอใจ', renderer:show_color},
-			 {dataIndex: 'Yes_comment_mac', id: 'Yes_comment_mac', width:50, header: 'data_option', renderer:show_click},	
+        var columns = [       
+			 {dataIndex: 'Yes_comment_id',id: 'Yes_comment_id',width:5,header: 'ID', renderer:show_click},
+			 {dataIndex: 'Yes_comment_time', id: 'Yes_comment_time', width:13, header: 'วันที่แจ้งปัญหา',xtype: 'datecolumn', format:'d-m-Y H:i', renderer:show_click},
+			 {dataIndex: 'Yes_comment_name', id: 'Yes_comment_name', width:15, header: 'ชื่อลูกค้า', renderer:show_click},
+			 {dataIndex: 'Yes_comment_username', id: 'Yes_comment_username', width:6, header: 'Username', renderer:show_click},
+			 {dataIndex: 'Yes_comment_room', id: 'Yes_comment_room', width:4, header: 'ลูกค้าห้อง', renderer:show_click},
+			 {dataIndex: 'Yes_comment_grop', id: 'Yes_comment_grop', width:6, header: 'กลุ่ม', renderer:show_click},
+			 {dataIndex: 'Yes_comment_country', id: 'Yes_comment_country', width:5, header: 'สัญชาติ', renderer:show_click},
+			 {dataIndex: 'Yes_comment_level', id: 'Yes_comment_level', width:9, header: 'สถานะแสดงความพึงพอใจ', renderer:show_color},
+			 {dataIndex: 'Yes_comment_type', id: 'Yes_comment_type', width:9, header: 'ปัญหา', renderer:check_pro},
+			 {dataIndex: 'Yes_comment_id', id: 'Yes_comment_id', width:23, header: 'สถานที่มีปัญหา', renderer:check_status},	
+			 {dataIndex: 'Yes_comment_other', id: 'Yes_comment_other', width:30, header: 'คำพูด', renderer:show_click},		
 		];
         return new Ext.grid.ColumnModel({ columns: columns, defaults: {sortable: true} });
     };
@@ -153,8 +215,7 @@ Ext.onReady(function(){
 //*************************************** Grid *****************************************************		
   	var DocData = new Ext.data.GroupingStore({
 		proxy: new Ext.data.HttpProxy({url: '<?=$urlgrid;?>',method: 'POST'}),
-		reader: new Ext.data.JsonReader( { root: 'data',totalProperty: 'total'}, [<?=$fields;?>]),
-		//groupField:'project_title'  ,  
+		reader: new Ext.data.JsonReader( { root: 'data',totalProperty: 'total'}, [<?=$fields;?>]), 
 		remoteSort: true, sortInfo:{field: 'Yes_comment_id', direction: "DESC"}
     });
     var filters = new Ext.ux.grid.GridFilters({local: false,filters:[<?=$filters;?>]}); 
@@ -193,16 +254,10 @@ var loadDocData2Form = function(id){
 							markDirty: true,
 							hideGroupedColumn: true,
 							showGroupName: false,
-							//startCollapsed: true,
-							//groupTextTpl: '{text}({[values.rs.length]})',
-							//groupTextTpl: '{text} ({[values.rs.length]} {[values.rs.length > 1 ? "Items" : "Item"]})',
-							//groupTextTpl: '{text}',
 							enableNoGroups: true
 						}),	
 				viewConfig: {  
-						//forceFit:false, 
 						getRowClass: function(record, index, rowParams){
-							 //return (Math.floor(index / 5.0) % 2 == 0) ? 'rowClass1' : 'rowClass2';
 						}
 				},
 				autoExpandColumn: 'type_name',
@@ -243,10 +298,10 @@ var loadDocData2Form = function(id){
 			if(btn){   
 					var c  = btn.getAttribute('control');
 					var s  = this.getSelectionModel().getSelected().data;
-					var id = s.data_id;
+					var id = s.Yes_comment_id;
 					if( c=="popup"){  
-					loadFormman(id);	 
-					//alert('ok');
+					loadFormman(id);	
+					//console.log(s); 
 				}
 		  }
     });	
@@ -261,11 +316,6 @@ var loadDocData2Form = function(id){
 		search_data();
 	} 
 	
-	/*    	
-	var search_data=function(){
-		mydatastore.load();
-	} 
-	*/
 
 var formman = new Ext.FormPanel({
 		labelWidth: 80,border:true,iconCls:'card',
@@ -321,12 +371,8 @@ var formman = new Ext.FormPanel({
 		defaults:{autoScroll:true},
 		autoScroll:true,
 		monitorValid:true,
-        //width: 600,
-        //height: 400,
-		//layout:'form',
-		//frame:false,
 		bodyStyle:'padding:10px;margin:0',
-		reader: new Ext.data.JsonReader ({root: 'data',fields: [<?=$fields;?>]}),
+		reader: new Ext.data.JsonReader ({root: 'data',totalProperty: 'Yes_comment_id',fields: [<?=$fields;?>]}),
         items: [{
             layout:'form',
             border:false,
@@ -334,44 +380,46 @@ var formman = new Ext.FormPanel({
 				xtype:'textfield',
 				name : "Yes_comment_id",anchor:'-5',
 				fieldLabel : "ปัญหาหมายเลข",
-				disabled:true,
-				allowBlank: false
+				disabled:true
 			},{
 				xtype: 'datefield',anchor:'-5',
-				format:'H:i d-m-Y',
-				name : "Yes_comment_id",
+				format:'d-m-Y H:i',
+				name : "Yes_comment_time",
 				disabled:true,
 				fieldLabel : "วันที่แจ้งปัญหา"
 			},{
 				xtype: 'textfield',anchor:'-5',
-				name : "Yes_comment_id",
+				name : "Yes_comment_username",
 				disabled:true,
 				fieldLabel : "Userที่ใช้ล็อกอิน"
 			},{
 				xtype: 'textfield',anchor:'-5',
-				name : "Yes_comment_id",
+				name : "Yes_comment_name",
 				disabled:true,
 				fieldLabel : "ชื่อลูกค้า"
 			},{
 				xtype: 'textfield',anchor:'-5',
-				name : "Yes_comment_id",
+				name : "Yes_comment_room",
 				disabled:true,
 				fieldLabel : "ลูกค้าห้อง"
 			},{
 				xtype: 'textfield',anchor:'-5',
-				name : "Yes_comment_id",
+				name : "Yes_comment_country",
 				disabled:true,
 				fieldLabel : "สัญชาติ"
 			},{
-				xtype: 'textfield',anchor:'-5',
-				name : "Yes_comment_id",
-				fieldLabel : "Note"
-			},{
-				xtype:'hidden',
-				name:'Yes_comment_id'
+				xtype: 'textfield',
+				anchor:'-5',
+				fieldLabel : "Note",
+				disabled:true,
+				dataIndex: 'Yes_comment_web',
+				renderer:function(v,para,r) {
+                        console.log(v,para,r);
+                    }
 			}]
 	}],
-        fbar:[{
+
+    fbar:[{
 								text: 'บันทึกการอ่าน',
 								iconCls:'save',								
 								handler: function(){
@@ -379,7 +427,7 @@ var formman = new Ext.FormPanel({
 												url: '<?=$urlpost;?>', 
 	                    						waitMsg: 'บันทึก...',				
 												success: function(form, action){	
-													var mm = action.result.data;	
+													//var mm = action.result.data;	
 													win.hide();
 													search_data();
 												},
@@ -394,7 +442,7 @@ var formman = new Ext.FormPanel({
     });
 	
 	formman.on({	actioncomplete: function(form, action){
-					var mm = action.result.data;
+					//var mm = action.result.data;
 					if(action.type == 'load'){ } 
 					if(action.type == 'submit'){ }					
 					
@@ -418,7 +466,6 @@ var formman = new Ext.FormPanel({
 			TabPanelman.remove('tab-document', true); 
 			TabPanelman.remove('tab-comment', true); 
 		}
-		//if(rowid){
 			TabPanelman.add({
 				title: 'Comment',id:'tab-comment',iconCls: 'note',
 				layout:'fit',bodyStyle:'padding:0;', 
@@ -431,11 +478,9 @@ var formman = new Ext.FormPanel({
 			}).show();
 			TabPanelman.doLayout();	
 			TabPanelman.setActiveTab(0);
-		//}
 	}
 
     var win;
-
     if(!win){
             win = new Ext.Window({
 				iconCls	:'note',
@@ -477,7 +522,7 @@ var formman = new Ext.FormPanel({
 							id:'main-view',
 							layout:'fit',
 							border: false,
-							items:DocGrid
+
 						}
 				  }
          ]
