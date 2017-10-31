@@ -128,13 +128,6 @@
 <button type="button" class="btn btn-success btn-flat" id="yes_open_model" ><?php echo $this->lang->line('yes'); ?></button>
 <button type="button" class="btn btn-danger btn-flat" id="no"><?php echo $this->lang->line('no'); ?></button>
 </div>
-<?php  
-      $browser = $this->agent->browser();
-      $mobile = $this->agent->mobile();
-      $platform = $this->agent->platform();
-
-      echo $browser.$mobile.$platform;
-?>
 
 <!-- Modal -->
 <div class="modal fade" id="Yes" tabindex="-1" role="dialog" aria-labelledby="titlemodal" >
