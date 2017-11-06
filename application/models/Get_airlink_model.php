@@ -24,21 +24,21 @@ class Get_airlink_model extends CI_Model {
 			$browser = $this->agent->browser();
 			$mobile = $this->agent->mobile();
 			$platform = $this->agent->platform();
-			if ($platform == 'Android') {
+			if ($platform == 'iOS') {
+				//$this->ios_Go();
 				return;
 				//redirect('Ios/index', 'refresh');
-			}elseif ($platform == 'iOS') {
-				$this->ios_Go();
+			}else{
+				return;
 			}
-			else{
-				header("Location:  ../popup/index.html");
-			}
+
 			}		
 
 	public function ios_Go()
 				{	
-					header("Location:  ../popup/index.html");
-					//redirect('Ios/index', 'refresh');
+					echo $this->session->sess_destroy();
+					//header("Location:  ../popup/index.html");
+					redirect('Ios/index', 'refresh');
 				}			
 
 	public function Get_Data_model()
@@ -72,7 +72,7 @@ class Get_airlink_model extends CI_Model {
 		
 		//AND isset($this->session->relogin)
 
-		if (isset($this->session->Mikrotik) ) {
+		if (isset($this->session->Mikrotik)) {
 			return;
 		}else{
 			header("Location:  ../popup/index.html");

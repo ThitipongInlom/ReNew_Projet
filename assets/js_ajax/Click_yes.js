@@ -15,7 +15,7 @@ $(document).ready(function() {
 	}	
 	// Check Data == '' No Show Model	
 	if (data_check=='') {
-		$.getJSON('index.php/Welcome/Data_Alert', function(result) {
+		$.getJSON('Welcome/Data_Alert', function(result) {
     	alertify.defaults.theme.ok = "btn btn-primary";
 		alertify.defaults.theme.cancel = "btn btn-danger";
 		alertify.alert(result.Head_Data, result.Text_Data_Select);

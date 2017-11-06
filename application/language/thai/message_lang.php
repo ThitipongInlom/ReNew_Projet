@@ -13,5 +13,7 @@ $lang['restaurant'] = 'ร้านอาหาร';
 $lang['thank_you'] = 'ขอบคุณครับ';
 $lang['hi'] = 'สวัสดี';
 $lang['alert'] = 'แจ้งเตือน';
+$lang['detail'] = 'รายละเอียด';
+$lang['promotion'] = 'โปรโมชั่น';
 
 ?>

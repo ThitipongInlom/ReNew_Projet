@@ -38,14 +38,21 @@ $('#send_data').click(function() {
 	}else{
 		var restaurant = '';
 	}
-	var other = document.getElementById('other').value; 
+	var other =  document.getElementById('other');
+	if (other.checked) {
+		var other = '1';
+	}else{
+		var other = '';
+	}
+
+	var detail = document.getElementById('detail').value; 
 	$.ajax({
-		url: 'index.php/Welcome/Click_Yes',
+		url: 'Welcome/Click_Yes',
 		type: 'POST',
 		cache: false,
-		data: {'data_check':data_check,'room':room,'spa':spa,'fitness':fitness,'restaurant':restaurant,'other':other},
+		data: {'data_check':data_check,'room':room,'spa':spa,'fitness':fitness,'restaurant':restaurant,'other':other,'detail':detail},
 		success: function(result){
-			$.getJSON('index.php/Welcome/Data_Alert', function(result) {
+			$.getJSON('Welcome/Data_Alert', function(result) {
 	    	alertify.defaults.theme.ok = "btn btn-primary";
 			alertify.defaults.theme.cancel = "btn btn-danger";
 			alertify.alert(result.Head_Data, result.Text_Data_Thank,function () {

@@ -8,13 +8,15 @@ class Welcome extends CI_Controller {
 		parent::__construct();   	
 		$this->load->model('Get_airlink_model');
 		$this->load->model('Save_Ajax');
+		$this->load->model('Promotion_model');
 		$this->lang->load('message','english'); 
 	}
 
 	public function index()
 	{
 		$result = $this->Get_airlink_model->Get_Data_model();
-		$this->load->view('welcome_message');
+		$data['promotion'] = $this->Promotion_model->get_data();
+		$this->load->view('welcome_message', $data);
 	}
 
 	public function Click_No()
@@ -38,6 +40,7 @@ class Welcome extends CI_Controller {
 			'Text_Data_Thank' => $Text_Data_Thank);
 		echo json_encode($arrt);
 	}
+
 
 
 }

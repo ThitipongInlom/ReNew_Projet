@@ -34,6 +34,7 @@ class Save_Ajax extends CI_Model {
 			$fitness = $this->input->post('fitness');
 			$restaurant = $this->input->post('restaurant');
 			$other = $this->input->post('other');
+			$detail = $this->input->post('detail');
 			$today = date("Y-m-d H:i:s");
 			$data = array(
 			'Yes_comment_level'  => $Level,
@@ -52,7 +53,8 @@ class Save_Ajax extends CI_Model {
 			'Yes_comment_web'    => $this->session->Data_Web['web'],
 			'Yes_comment_type' => '1',
 			'Yes_comment_time'   => $today,
-			'Yes_comment_mac'    => $this->session->Mikrotik['mac']);
+			'Yes_comment_mac'    => $this->session->Mikrotik['mac'],
+			'Yes_comment_detail' => $detail);
 			$this->db->insert('yes_comment', $data);
 			echo $this->lang->line('thank_you');
 		}	

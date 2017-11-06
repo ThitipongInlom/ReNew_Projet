@@ -13,6 +13,8 @@ $lang['restaurant'] = 'Restaurant';
 $lang['thank_you'] = 'Thank You';
 $lang['hi'] = 'Hi';
 $lang['alert'] = 'Alert';
+$lang['detail'] = 'Detail';
+$lang['promotion'] = 'Promotion';
 
 
 ?>

@@ -71,24 +71,46 @@
 </style>
 <link rel="shortcut icon" href="<?php echo base_url().'assets/icon/icon.ico'; ?>" /> 
 </head>
-<body class="hold-transition " style="background: black;">
+<body class="hold-transition" style="background: black;" >
 <!-- Head -->  
 <div class="box box-solid">
             <div class="box-header with-border" style="background-color: #ce5008;">
             <div class="row"> 
             <div class="col-md-2 col-xs-7 col-sm-6">
+
+                <!--
                 <a class="btn float-left 
                 <?php  
                 if($this->session->site_lang == 'english'){echo 'btn-info';}
                 else{echo 'btn-default';}
-                ?>" href="<?php echo base_url(); ?>index.php/Language/switchLang/english" role="button" type="submit" name="lang" value="en">
+                ?>" href="<?php echo base_url(); ?>Language/switchLang/english" role="button" type="submit" name="lang" value="en" id="english">
                 <img src="<?php echo base_url().'assets/icon/en.png'; ?>" class="rounded" width="24" height="24"></a>
+                -->
+
+                <button class="btn float-left
+                <?php  
+                if($this->session->site_lang == 'english'){echo 'btn-info';}
+                else{echo 'btn-default';}
+                ?>" type="button" id="english">
+                  <img src="<?php echo base_url().'assets/icon/en.png'; ?>" class="rounded" width="24" height="24">
+                </button>  
+                <!--
                 <a class="btn float-left 
                 <?php  
                 if($this->session->site_lang == 'thai'){echo 'btn-info';}
                 else{echo 'btn-default';}
-                ?>" href="<?php echo base_url(); ?>index.php/Language/switchLang/thai" role="button" type="submit" name="lang" value="th">
+                ?>" href="<?php echo base_url(); ?>Language/switchLang/thai" role="button" type="submit" name="lang" value="th" id="thai">
                 <img src="<?php echo base_url().'assets/icon/th.png'; ?>" class="rounded logo" width="24" height="24"></a>
+                -->
+
+                <button class="btn float-left
+                <?php  
+                if($this->session->site_lang == 'thai'){echo 'btn-info';}
+                else{echo 'btn-default';}
+                ?>" type="button" id="thai">
+                  <img src="<?php echo base_url().'assets/icon/th.png'; ?>" class="rounded" width="24" height="24">
+                </button> 
+
             </div>
             <div class="col-md-1 col-md-offset-9  col-xs-2 col-xs-offset-1 col-sm-2 col-sm-offset-4">
               <img src="<?php echo base_url().'assets/icon/logo.png'; ?>" alt="Logo" width="80">
@@ -125,8 +147,39 @@
 <div align="center">
   <h4 style="color: #ffffff;"><?php echo $this->lang->line('Problem_Found'); ?>
 </h4><br>
-<button type="button" class="btn btn-success btn-flat" id="yes_open_model" ><?php echo $this->lang->line('yes'); ?></button>
-<button type="button" class="btn btn-danger btn-flat" id="no"><?php echo $this->lang->line('no'); ?></button>
+<button type="button" class="btn btn-success btn-lg" id="yes_open_model" ><?php echo $this->lang->line('yes'); ?></button>
+<button type="button" class="btn btn-danger btn-lg" id="no"><?php echo $this->lang->line('no'); ?></button>
+</div>
+<hr style="background: #ffffff">
+<div align="center">
+  <h4 style="color: #ffffff;"><?php echo $this->lang->line('promotion'); ?>
+</div>
+<div class="row">  
+<div class="col-md-12 col-xs-12  col-sm-12">
+<?php foreach ($promotion as $row)
+{ ?>  
+<div class="col-md-4 col-xs-12  col-sm-4">
+<div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title"><i class="fa fa-fw fa-tags"></i>
+                <?php  
+                if ($this->session->site_lang == 'thai') {
+                  echo $row->promotion_head_th;
+                }else{
+                  echo $row->promotion_head_en;
+                }
+                ?>
+                </h3>
+            </div>
+            <div class="box-body">
+             <div align="center"> 
+            <img src="<?php echo base_url().'assets/promotion/'.$row->promotion_img.''; ?>" alt="..." class="img-responsive">
+             </div>
+            </div>
+</div>            
+</div>
+<?php } ?>
+<div>
 </div>
 
 <!-- Modal -->
@@ -142,26 +195,37 @@
             <div class="box-header with-border">
             </div>
           <div class="box-body">
-             <!-- checkbox -->
-          <div class="checkbox icheck">
-              <input type="checkbox" class="check_data" id="room">
-              <label for="room" style="padding-left: 10px;"><?php echo $this->lang->line('room'); ?></label>
-          </div>
-          <div class="checkbox icheck">
-              <input type="checkbox" class="check_data" id="Spa">
-              <label for="Spa" style="padding-left: 10px;"><?php echo $this->lang->line('spa'); ?></label>
-          </div>
-          <div class="checkbox icheck">
-              <input type="checkbox" class="check_data" id="fitness">
-              <label for="fitness" style="padding-left: 10px;"><?php echo $this->lang->line('fitness'); ?></label>
-          </div>
-          <div class="checkbox icheck">
-              <input type="checkbox" class="check_data" id="restaurant">
-              <label for="restaurant" style="padding-left: 10px;"><?php echo $this->lang->line('restaurant'); ?></label>
-          </div>
+            <div class="row">
+              <div class="col-md-6 col-xs-6">
+                <!-- checkbox liet -->
+                <div class="checkbox icheck">
+                    <input type="checkbox" class="check_data" id="room">
+                    <label for="room" style="padding-left: 10px; font-size: 18px;"><?php echo $this->lang->line('room'); ?></label>
+                </div>
+                <div class="checkbox icheck">
+                    <input type="checkbox" class="check_data" id="fitness">
+                    <label for="fitness" style="padding-left: 10px; font-size: 18px;"><?php echo $this->lang->line('fitness'); ?></label>
+                </div>
+                <div class="checkbox icheck">
+                    <input type="checkbox" class="check_data" id="other">
+                    <label for="other" style="padding-left: 10px; font-size: 18px;"><?php echo $this->lang->line('other'); ?></label>
+                </div>
+              </div>
+              <div class="col-md-6 col-xs-6">
+                <!-- checkbox right -->
+                 <div class="checkbox icheck">
+                    <input type="checkbox" class="check_data" id="Spa">
+                    <label for="Spa" style="padding-left: 10px; font-size: 18px;"><?php echo $this->lang->line('spa'); ?></label>
+                </div>
+                <div class="checkbox icheck">
+                    <input type="checkbox" class="check_data" id="restaurant">
+                    <label for="restaurant" style="padding-left: 10px; font-size: 18px;"><?php echo $this->lang->line('restaurant'); ?></label>
+                </div>
+              </div>
+            </div>
           <div class="form-group">
-                  <label><?php echo $this->lang->line('other'); ?></label>
-                  <textarea class="form-control" id="other" rows="3" placeholder="<?php echo $this->lang->line('other');echo ' ...';?>"></textarea>
+                  <label><?php echo $this->lang->line('detail'); ?></label>
+                  <textarea class="form-control" id="detail" rows="3" placeholder="<?php echo $this->lang->line('detail');echo ' ...';?>"></textarea>
           </div>
           </div>
       </div>
@@ -189,6 +253,8 @@
 <script src="<?php echo base_url().'assets/js_ajax/ajax_yes_data.js'; ?>"></script>
 <!-- JS Click_ Yes -->
 <script src="<?php echo base_url().'assets/js_ajax/Click_yes.js'; ?>"></script>
+<!-- JS Lang -->
+<script src="<?php echo base_url().'assets/js_ajax/ajax_lang.js'; ?>"></script>
 <!-- include the script -->
 <script src="<?php echo base_url().'assets/alertify/alertify.min.js'; ?>"></script>
 <script type="text/javascript">
