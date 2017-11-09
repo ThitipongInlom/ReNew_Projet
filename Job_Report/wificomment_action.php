@@ -123,4 +123,36 @@ if($act=="count"){
     exit();
 }
 
+if($act=="settypelist"){
+    $con_add.=($query=="")?"":"  and (type_name like '%$query%' or type_code like '%$query%' or type_remark like '%$query%') ";
+    $con_add.=($type_category=="")?"":" and type_category='$type_category' ";
+    $con_add.=($type_parent=="")?"":" and type_parent='$type_parent' ";
+    $con_add.=($type_remark=="")?"":" and FIND_IN_SET(type_remark,'$type_remark')>0  ";
+    $con_order=($order_by!="")?"$order_by":"type_order";
+    $rs = mysql_query("SELECT * from set_type where 0=0 and type_status='1' $con_add  order by $con_order ");
+    $arr = array();
+    while($obj = mysql_fetch_object($rs)) { $arr[] = $obj; }
+    echo '{success:true,data:'.json_encode($arr).'}';
+}
+
+if ($_GET['act']=="post") {
+    $q=new dbMan(trim(text_get($connect_mysql253)));
+    //$room = $_POST['comment_room'];
+    //$spa  = $_POST['ext-comp-1141'];
+    //$fitness = $_POST['ext-comp-1142'];
+    //$restaurant = $_POST['ext-comp-1143'];
+    //$other = $_POST['ext-comp-1144'];
+    $see1_by = $_POST['see1_by'];
+    $see1_date = $_POST['see_1_date'];
+    $id = $_POST['Yes_comment_id'];
+    //comment_room='$room', comment_spa='$spa', comment_fitness='$fitness', comment_restaurant='$restaurant', comment_other='$other',
+    $rs = mysql_query("update yes_comment set see1by='$see1_by', see1date='$see1_date' where Yes_comment_id='$id' ");
+    if($rs){
+        echo "OK";
+    }else{
+        echo "No";
+    }
+    print_r($_POST);
+}
+
 ?>
