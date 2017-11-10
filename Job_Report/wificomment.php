@@ -43,6 +43,12 @@ $fields="
             {name: 'Yes_comment_status' , type: 'string' },
             {name: 'Yes_comment_detail' , type: 'string' },
             {name: 'Yes_comment_type' , type: 'string' },
+            {name: 'comment_room' , type: 'string' },
+            {name: 'comment_spa' , type: 'string' },
+            {name: 'comment_fitness' , type: 'string' },
+            {name: 'comment_restaurant' , type: 'string' },
+            {name: 'comment_other' , type: 'string' },
+            {name: 'see1date' , type: 'string' },
             {name: 'see1by' , type: 'string' }
 
 ";
@@ -68,6 +74,12 @@ $filters="
             {dataIndex: 'Yes_comment_status' , type: 'string' }, 
             {dataIndex: 'Yes_comment_detail' , type: 'string' }, 
             {dataIndex: 'Yes_comment_type' , type: 'string' },
+            {dataIndex: 'comment_room' , type: 'string' },
+            {dataIndex: 'comment_spa' , type: 'string' },
+            {dataIndex: 'comment_fitness' , type: 'string' },
+            {dataIndex: 'comment_restaurant' , type: 'string' },
+            {dataIndex: 'comment_other' , type: 'string' },
+            {dataIndex: 'see1date' , type: 'string' },
             {dataIndex: 'see1by' , type: 'string' }
 ";
 ?>
@@ -163,13 +175,16 @@ Ext.onReady(function(){
     var status_click = function (v,para,r) {
     	var status = r.data['Yes_comment_status'];
     	if (status == '') {
-    		return '<div class="control" control="popup" >N</div>';
+    		return '<div class="control" control="popup"><span style="color:DarkViolet;font-weight:bold">N<span></div>';
     	}
     	if (status == 'P') {
-    		return '<div class="control" control="popup" >P</div>';
+    		return '<div class="control" control="popup"><span style="color:MediumBlue;font-weight:bold">P<span></div>';
     	}
     	if (status == 'D') {
-    		return '<div class="control" control="popup" >D</div>';
+    		return '<div class="control" control="popup"><span style="color:LimeGreen;font-weight:bold">D<span></div>';
+    	}
+    	if (status == 'W') {
+    		return '<div class="control" control="popup"><span style="color:FireBrick;font-weight:bold">W<span></div>';
     	}
     }
 
@@ -214,10 +229,11 @@ Ext.onReady(function(){
 			 {dataIndex: 'Yes_comment_name', id: 'Yes_comment_name', width:20, header: 'ชื่อลูกค้า', renderer:show_click},
 			 {dataIndex: 'Yes_comment_room', id: 'Yes_comment_room', width:4, header: 'ห้อง', renderer:show_click},
 			 {dataIndex: 'Yes_comment_country', id: 'Yes_comment_country', width:4, header: 'สัญชาติ', renderer:show_click},
-			 {dataIndex: 'Yes_comment_level', id: 'Yes_comment_level', width:8, header: 'สถานะแสดงความพึงพอใจ', renderer:show_color},
-			 {dataIndex: 'Yes_comment_type', id: 'Yes_comment_type', width:8, header: 'ปัญหา', renderer:check_pro},
+			 {dataIndex: 'Yes_comment_level', id: 'Yes_comment_level', width:9, header: 'สถานะแสดงความพึงพอใจ', renderer:show_color},
+			 {dataIndex: 'Yes_comment_type', id: 'Yes_comment_type', width:9, header: 'ปัญหา', renderer:check_pro},
 			 {dataIndex: 'Yes_comment_id', id: 'Yes_comment_id', width:25, header: 'สถานที่มีปัญหา', renderer:check_status},	
 			 {dataIndex: 'Yes_comment_detail', id: 'Yes_comment_detail', width:30, header: 'รายระเอียด', renderer:show_click},	
+			 {dataIndex: 'see1by', id: 'see1by', width:10, header: 'ผู้ติดต่อผสานงาน', renderer:show_click},	
 			 {dataIndex: 'Yes_comment_status', id: 'Yes_comment_status', width:2, header: 'สถานะ', renderer:status_click},	
 			 			{
                 xtype: 'actioncolumn',
@@ -227,12 +243,23 @@ Ext.onReady(function(){
 					getClass: function(v, meta, rec) { 
 						if(rec.data["Yes_comment_status"]=='') {
 							this.items[0].tooltip = 'ปัญหายังไม่ได้แก้ไข (ปัญหาหมายเลขที่ '+rec.data["Yes_comment_id"]+')';
+							//console.log(v, meta, rec);
+							return '10';
+						}
+						if(rec.data["Yes_comment_status"]=='P') {
+							this.items[0].tooltip = 'ปัญหายังไม่ได้แก้ไข (ปัญหาหมายเลขที่ '+rec.data["Yes_comment_id"]+')';
 							//console.log(meta);
-							return 'waiting';
-						}else{
+							return '10';
+						}
+						if(rec.data["Yes_comment_status"]=='W') {
+							this.items[0].tooltip = 'ปัญหายังไม่ได้แก้ไข (ปัญหาหมายเลขที่ '+rec.data["Yes_comment_id"]+')';
+							//console.log(meta);
+							return '10';
+						}
+						else{
 							this.items[0].tooltip = 'สถานะ : แก้ปัญหาเรียบร้อย';
 							//console.log(rec);
-							return 'hide';
+							return '10';
 						}
 					},handler:function(grid, rowIndex, colIndex) {
 							var s = grid.getStore().getAt(rowIndex);
@@ -428,7 +455,7 @@ var formman = new Ext.FormPanel({
             border:false,
 			items:[{
 					layout:'column',
-					border:false,//bodyStyle:'padding:10px',
+					border:false,
 					items:[{
 							columnWidth:.50,
 							layout: 'form',labelWidth:50,border:false,defaults: {anchor:'-5'},
@@ -437,25 +464,14 @@ var formman = new Ext.FormPanel({
 								fieldLabel: 'วันที่',
 								items:[{
 									flex:3,
-									xtype:'combo',//listWidth:250,
+									xtype:'combo',
 									mode: 'remote',minChars : 0,
 									typeAhead: false,editable:false,
 									forceSelection:true,triggerAction: 'all',		
 									xtype: 'datefield',
 							        name: 'Yes_comment_time',
 							        format:'d-m-Y H:i',
-							        disabled: true,
-								}]
-							},{	
-								xtype: 'compositefield',anchor:'-20',
-								fieldLabel:'ชื่อลูกค้า',
-								items:[{
-									flex:3,
-									xtype:'combo',
-									fieldLabel: 'Name',
-									xtype: 'textfield',
-							        name: 'Yes_comment_name',
-							        disabled: true,
+							        //disabled: true,
 								}]
 							}]
 						},{
@@ -467,38 +483,150 @@ var formman = new Ext.FormPanel({
 								fieldLabel: 'สัญชาติ',
 								xtype: 'textfield',
 							    name: 'Yes_comment_country',
-							    disabled: true,	
-							},{
-								xtype:'combo',
-								anchor:'-20',
-								fieldLabel: 'ห้อง',
-								xtype: 'textfield',
-							    name: 'Yes_comment_room',
-							    disabled: true,	
+							    //disabled: true,	
 							}]
 					}]	
 			},{
 					layout:'column',
 					border:false,
 					items:[{
-							columnWidth:1,
+							columnWidth:.70,
+							layout: 'form',labelWidth:50,border:false,defaults: {anchor:'-5'},
+							items:[{	
+								xtype: 'compositefield',anchor:'-20',
+								fieldLabel:'ชื่อลูกค้า',
+								items:[{
+									flex:3,
+									xtype:'combo',
+									fieldLabel: 'Name',
+									xtype: 'textfield',
+							        name: 'Yes_comment_name',
+							        //disabled: true,
+								}]
+							}]
+						},{
+							columnWidth:.30,
+							layout: 'form',labelWidth:50,border:false,defaults: {anchor:'-5'},
+							items:[{
+								xtype:'combo',
+								anchor:'-20',
+								fieldLabel: 'ห้อง',
+								xtype: 'textfield',
+							    name: 'Yes_comment_room',
+							    //disabled: true,	
+							}]
+					}]	
+			},{
+					layout:'column',
+					border:false,
+					items:[{
+							columnWidth:0.14,
 							layout: 'form',labelWidth:5,border:false,defaults: {anchor:'-5'},
 							items:[{
 								xtype:'fieldset',anchor:'100%',
-								title: 'สถานที่มีปัญหา',
+								title: 'Room',
 								readOnly:true,	
-								border:true,							
+								border:true,						
 								collapsed: false,
 								items:[{
-								xtype:'textfield',
-								width:'100%',
-								disabled: true
+									xtype: 'checkbox', 
+									id: 'Yes_comment_roombox', 
+									name: 'Yes_comment_roombox', 
+									boxLabel: 'Room', 
+									hideLabel: true, 
+									//disabled: true,
+									checked: true}]
+							}]
+						},{
+							columnWidth:0.12,
+							layout: 'form',labelWidth:5,border:false,defaults: {anchor:'-5'},
+							items:[{
+								xtype:'fieldset',anchor:'100%',
+								title: 'Spa',
+								readOnly:true,	
+								border:true,						
+								collapsed: false,
+								items:[{
+									xtype: 'checkbox', 
+									id: 'Yes_comment_spa', 
+									name: 'Yes_comment_spa', 
+									boxLabel: 'Spa', 
+									hideLabel: true, 
+									//disabled: true,
+									checked: true}]
+							}]
+						},{
+							columnWidth:0.15,
+							layout: 'form',labelWidth:5,border:false,defaults: {anchor:'-5'},
+							items:[{
+								xtype:'fieldset',anchor:'100%',
+								title: 'Fitness',
+								readOnly:true,	
+								border:true,						
+								collapsed: false,
+								items:[{
+									xtype: 'checkbox', 
+									id: 'Yes_comment_fitness', 
+									name: 'Yes_comment_fitness', 
+									boxLabel: 'Fitness', 
+									hideLabel: true, 
+									//disabled: true,
+									checked: true}]
+							}]
+						},{
+							columnWidth:0.20,
+							layout: 'form',labelWidth:5,border:false,defaults: {anchor:'-5'},
+							items:[{
+								xtype:'fieldset',anchor:'100%',
+								title: 'Restaurant',
+								readOnly:true,	
+								border:true,						
+								collapsed: false,
+								items:[{
+									xtype: 'checkbox', 
+									id: 'Yes_comment_restaurant', 
+									name: 'Yes_comment_restaurant', 
+									boxLabel: 'Restaurant', 
+									hideLabel: true, 
+									//disabled: true,
+									checked: true,}]
+							}]
+						},{
+							columnWidth:0.14,
+							layout: 'form',labelWidth:5,border:false,defaults: {anchor:'-5'},
+							items:[{
+								xtype:'fieldset',anchor:'100%',
+								title: 'Other',
+								readOnly:true,	
+								border:true,						
+								collapsed: false,
+								items:[{
+									xtype: 'checkbox', 
+									id: 'Yes_comment_other', 
+									name: 'Yes_comment_other', 
+									boxLabel: 'Other', 
+									hideLabel: true, 
+									//disabled: true,
+									checked: true},]
+							}]
+						},{
+							columnWidth:0.23,
+							layout: 'form',labelWidth:5,border:false,defaults: {anchor:'-5'},
+							items:[{
+								xtype:'fieldset',
+								title: 'Other',
+								border:true,						
+								collapsed: false,
+								items:[{
+									xtype:'textfield',
+									id : '123',
+									anchor:'0'
 								}]
 							}]
 						}]	
 			},{
 					layout:'column',
-					border:false,//bodyStyle:'padding:10px',
+					border:false,
 					items:[{
 							columnWidth:1,
 							layout: 'form',labelWidth:5,border:false,defaults: {anchor:'-5'},
@@ -514,33 +642,56 @@ var formman = new Ext.FormPanel({
 			                    name: 'Yes_comment_detail',
 								anchor:'100% 100%',
 								border:false,
-								disabled: true,	
+								//disabled: true,	
 								}]
 
 							}]
 						}]	
 			},{
 					layout:'column',
-					border:false,
+					border:false,//bodyStyle:'padding:10px',
 					items:[{
 							columnWidth:1,
-							layout: 'form',labelWidth:5,border:false,defaults: {anchor:'-5'},
+							layout: 'form',labelWidth:70,border:false,defaults: {anchor:'-5'},
 							items:[{
 								xtype:'fieldset',anchor:'100%',
-								title: 'สถานที่มีปัญหา',
-								readOnly:true,	
-								border:true,							
+								title: 'สถานที่มีปัญหา - วิธีแก้ไขปัญหา',
+								autoHeight:true,readOnly:true,
+								defaults: {anchor:'-5'},
+								defaultType: 'textfield',											
 								collapsed: false,
 								items:[{
-								xtype:'textfield',
-								width:'100%',
-								disabled: true,
+									xtype:'textfield',
+									fieldLabel: 'Room',
+									name: 'comment_room',
+									id : 'comment_room',
+									anchor:'-20'
 								},{
-								xtype:'textfield',
-								width:'100%',
-								disabled: true,
+									xtype:'textfield',
+									fieldLabel: 'Spa',
+									name: 'comment_spa',
+									id : 'comment_spa',
+									anchor:'-20'
+								},{
+									xtype:'textfield',
+									fieldLabel: 'Fitness',
+									name: 'comment_fitness',
+									id : 'comment_fitness',
+									anchor:'-20'
+								},{
+									xtype:'textfield',
+									fieldLabel: 'Restaurant',
+									name: 'comment_restaurant',
+									id : 'comment_restaurant',
+									anchor:'-20'
+								},{
+									xtype:'textfield',
+									fieldLabel: 'Other',
+									name: 'comment_other',
+									id : 'comment_other',
+									anchor:'-20'
 								}]
-							},]
+							}]
 						}]	
 			},{
 					layout:'column',
@@ -555,9 +706,10 @@ var formman = new Ext.FormPanel({
 									flex:1.5,
 									listWidth:300,
 									xtype:'combo',
-									name: 'Yes_comment_name',
-									hiddenName: 'Yes_comment_name',
-									emptyText: 'ผู้ติดต่อผสานงาน',
+									name: 'see1by',
+									hiddenName: 'see1by',
+									id : 'see1by',
+									emptyText: 'ผู้ติดต่อประสานงาน',
 									displayField:'type_code',
 									valueField:'type_code',
 									mode: 'remote',
@@ -567,19 +719,10 @@ var formman = new Ext.FormPanel({
 									forceSelection:true,
 									triggerAction: 'all',
 									store:new Ext.data.JsonStore({url:'wificomment_action.php?act=settypelist&type_category=taskstaffen&type_remark=<?=$department;?>&order_by=type_code', 
-										root:'data', 
-										autoLoad:true,  
-										fields:['type_code','type_name','type_name_en']}),
+									root:'data', 
+									autoLoad:true,  
+									fields:['type_code','type_name','type_name_en']}),
 									tpl: new Ext.XTemplate('<tpl for="."><div class="x-combo-list-item"><b>{type_code}</b> : {type_name}</div></tpl>')
-								}]
-							},{	
-								xtype: 'compositefield',anchor:'-20',
-								fieldLabel:'ชื่อลูกค้า',
-								items:[{
-									flex:3,
-									xtype:'combo',
-									xtype: 'textfield',
-							        name: 'Yes_comment_name',
 								}]
 							}]
 						},{
@@ -588,19 +731,44 @@ var formman = new Ext.FormPanel({
 							items:[{
 								xtype:'combo',
 								anchor:'-20',
-								fieldLabel: 'วันที่ติดต่อผสานงาน',
+								fieldLabel: 'วันที่ติดต่อประสานงาน',
 								xtype: 'datefield',
-							    name: 'see_1_date',
+							    name: 'see1date',
+							    id : 'see1date',
 							    format:'d-m-Y',
-							},{
-								xtype:'combo',
-								anchor:'-20',
-								fieldLabel: 'ห้อง',
-								xtype: 'textfield',
-							    name: 'Yes_comment_room',
-							    disabled: true,	
 							}]
 					}]	
+			},{
+					layout:'column',
+					border:false,//bodyStyle:'padding:10px',
+					items:[{
+							columnWidth:.50,
+							layout: 'form',labelWidth:100,border:false,defaults: {anchor:'-5'},
+							items:[{
+								xtype: 'compositefield',anchor:'-20',
+								fieldLabel: 'สถานะของงาน',
+								items:[{
+									flex:1.5,
+									listWidth:300,
+									xtype:'combo',
+									name: '',
+									hiddenName: 'Yes_comment_status',
+									id : '',
+									emptyText: 'สถานะ',
+									displayField:'status_code',
+									valueField:'status_code',
+									mode: 'remote',
+									minChars : 0,
+									typeAhead: false,
+									editable:false,
+									forceSelection:true,
+									triggerAction: 'all',
+									store:new Ext.data.JsonStore({url:'wificomment_action.php?act=status',root:'data', autoLoad:true,  
+										fields:['status_code','status_name']}),
+									tpl: new Ext.XTemplate('<tpl for="."><div class="x-combo-list-item"><b>{status_code}</b> : {status_name}</div></tpl>')
+								}]
+							}]
+						}]	
 			},{
 				xtype:'hidden',
 				name:'Yes_comment_id'
@@ -619,8 +787,6 @@ var formman = new Ext.FormPanel({
 		bodyStyle:'padding:10px;margin:0',
 		reader: new Ext.data.JsonReader ({root: 'data',totalProperty: 'Yes_comment_id',fields: [<?=$fields;?>]}),
         items: [formedit], 
-
-
     fbar:[{
 								text: 'บันทึกการอ่าน',
 								iconCls:'save',						
@@ -637,7 +803,16 @@ var formman = new Ext.FormPanel({
 							},{
 								text: 'ปิด',
 								iconCls:'close',					
-								handler: function(){win.hide();}
+								handler: function(){
+			                        formman.getForm().reset(); 
+			                        Ext.getCmp('comment_room').setValue('');
+			                        Ext.getCmp('comment_spa').setValue('');
+			                        Ext.getCmp('comment_fitness').setValue('');
+			                        Ext.getCmp('comment_restaurant').setValue('');
+			                        Ext.getCmp('comment_other').setValue('');
+			                        //Ext.getCmp('see1by').setValue('');
+
+									win.hide();}
 							}
 				]
     });
@@ -651,8 +826,7 @@ var formman = new Ext.FormPanel({
 
 	var loadFormman = function(id){
 		if(id>0){
-			formman.getForm().load({ url: '<?=$urlload;?>', params:{id:id}, waitMsg: 'กำลังโหลดข้อมูล...' });
-				
+			formman.getForm().load({ url: '<?=$urlload;?>', params:{id:id}, waitMsg: 'กำลังโหลดข้อมูล...' });		
 		}else{
 			formman.getForm().reset();
 		}

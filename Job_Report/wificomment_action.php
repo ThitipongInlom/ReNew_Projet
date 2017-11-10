@@ -137,22 +137,30 @@ if($act=="settypelist"){
 
 if ($_GET['act']=="post") {
     $q=new dbMan(trim(text_get($connect_mysql253)));
-    //$room = $_POST['comment_room'];
-    //$spa  = $_POST['ext-comp-1141'];
-    //$fitness = $_POST['ext-comp-1142'];
-    //$restaurant = $_POST['ext-comp-1143'];
-    //$other = $_POST['ext-comp-1144'];
-    $see1_by = $_POST['see1_by'];
-    $see1_date = $_POST['see_1_date'];
+    $room = $_POST['comment_room'];
+    $spa  = $_POST['comment_spa'];
+    $fitness = $_POST['comment_fitness'];
+    $restaurant = $_POST['comment_restaurant'];
+    $status = $_POST['Yes_comment_status'];
+    $other = $_POST['comment_other'];
+    $see1_by = $_POST['see1by'];
+    $see1_date = $_POST['see1date'];
     $id = $_POST['Yes_comment_id'];
-    //comment_room='$room', comment_spa='$spa', comment_fitness='$fitness', comment_restaurant='$restaurant', comment_other='$other',
-    $rs = mysql_query("update yes_comment set see1by='$see1_by', see1date='$see1_date' where Yes_comment_id='$id' ");
+    $rs = mysql_query("update yes_comment set see1by='$see1_by', comment_room='$room', comment_spa='$spa', comment_fitness='$fitness', comment_restaurant='$restaurant', comment_other='$other', see1date='$see1_date' , Yes_comment_status='$status' where Yes_comment_id='$id' ");
     if($rs){
         echo "OK";
     }else{
         echo "No";
     }
     print_r($_POST);
+}
+
+if ($_GET['act']=="status") {
+    $q=new dbMan(trim(text_get($connect_mysql253)));                          
+    $rs = mysql_query("SELECT * from status");
+    $arr = array();
+    while($obj = mysql_fetch_object($rs)) { $arr[] = $obj; }
+    echo '{data:'.json_encode($arr).'}';
 }
 
 ?>

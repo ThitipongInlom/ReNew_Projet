@@ -82,6 +82,11 @@
       $sql="SELECT * from promotion";
       $result = $conn->query($sql);
       ?>       
+      <div style="padding-bottom: 10px;">
+      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-Promotion">
+        <span class="glyphicon glyphicon-plus"></span>เพื่ม Promotion
+      </button>
+      </div>
       <table id="promotion" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -107,7 +112,7 @@
                 <td align="center"><?php echo $i; ?></td>
                 <td align="center"><?php echo $row['promotion_head_th']; ?></td>
                 <td align="center"><?php echo $row['promotion_head_en']; ?></td>
-                <td align="center"><img src="http://172.16.0.129/renew/assets/promotion/<?php echo $row['promotion_img'];   ?>" alt="Test" style="width: 50px; height: 50px;"></td>
+                <td align="center"><img src="http://172.16.0.129/renew/assets/promotion/<?php echo $row['promotion_img']; ?>" alt="Test" style="width: 50px; height: 50px;"></td>
                 <td align="center"></td>
               </tr>
         <?php } ?>      
@@ -137,6 +142,40 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">ปิด</button>
                 <button type="button" class="btn btn-success" id="add-grop">เพิ่มGrop</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="modal-Promotion">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">เพื่ม Promotion</h4>
+              </div>
+              <div class="modal-body">
+                <form action="" method="post" accept-charset="utf-8">
+                <div>
+                  <div class="form-group">
+                    <label for="newgrop">ชื่อโปรโมชั่นไทย</label>
+                    <input type="text" class="form-control" id="promotion_head_th" placeholder="ชื่อโปรโมชั่นไทย Grop" name="promotion_head_th">
+                  </div>
+                  <div class="form-group">
+                    <label for="newgrop">ชื่อโปรโมชั่นอังกฤษ</label>
+                    <input type="text" class="form-control" id="promotion_head_en" placeholder="ชื่อโปรโมชั่นอังกฤษ Grop" name="promotion_head_en">
+                  </div>
+                  <div class="form-group">
+                  <label for="promotion_img">รูปภาพ</label>
+                  <input type="file" id="promotion_img" accept="image/*">
+                  </div>
+                </div>
+              </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">ปิด</button>
+                <button type="button" class="btn btn-success" id="add-Promotion">เพิ่มPromotion</button>
               </div>
             </div>
           </div>
@@ -200,6 +239,19 @@
     }});
   });
 
+  $("#add-Promotion").click(function() {
+    var file_data = $('#promotion_img').prop('files')[0];
+    console.log(file_data);
+    var datasrting = 'file='+ file_data;
+    $.ajax({
+    type: "POST",
+    url: "wificomment_setting_action.php",
+    data: datasrting,
+    success: function(result){
+      console.log(result);
+      //setTimeout("window.location.href = '';", 500);
+    }});
+  });
 </script>
 </body>
 </html>
