@@ -34,10 +34,12 @@ class Welcome extends CI_Controller {
 		$Head_Data = $this->lang->line('alert');
 		$Text_Data_Select = $this->lang->line('select_one_of_satisfactory_level_below');
 		$Text_Data_Thank = $this->lang->line('thank_you');
+		$Text_Pleasealert = $this->lang->line('Pleasealert');
 		$arrt = array(
 			'Head_Data' => $Head_Data,
 			'Text_Data_Select' => $Text_Data_Select,
-			'Text_Data_Thank' => $Text_Data_Thank);
+			'Text_Data_Thank' => $Text_Data_Thank,
+			'Text_Pleasealert' => $Text_Pleasealert);
 		echo json_encode($arrt);
 	}
 

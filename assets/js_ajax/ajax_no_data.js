@@ -12,9 +12,14 @@ $('#no').click(function() {
 	if (sad.checked) {
 		var data_check = '1';
 	}
-	// Go TheZign
+	// Go Check Alert
 	if (data_check=='') {
-		window.location = '../popup/index.html';
+		$.getJSON('Welcome/Data_Alert', function(result) {
+    	alertify.defaults.theme.ok = "btn btn-primary";
+		alertify.defaults.theme.cancel = "btn btn-danger";
+		alertify.alert('', result.Text_Pleasealert);
+		console.log(result);
+    	});
 	}else{
 		var data_send =  data_check;
 		$.ajax({

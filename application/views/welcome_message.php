@@ -193,6 +193,7 @@
       <div class="modal-body">
       <div class="box box-info">
             <div class="box-header with-border">
+              <label for="fitness" style="padding-left: 10px; font-size: 18px;"><?php echo $this->lang->line('texttatable'); ?></label>
             </div>
           <div class="box-body">
             <div class="row">
@@ -238,7 +239,8 @@
     </div>
   </div>
 </div>
-
+<!-- jQuery 3 Online -->
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 <!-- jQuery 3 -->
 <script src="<?php echo base_url().'assets/adminlte/bower_components/jquery/dist/jquery.min.js'; ?>"></script>
 <!-- Bootstrap 3.3.7 -->
