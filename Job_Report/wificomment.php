@@ -43,6 +43,7 @@ $fields="
             {name: 'Yes_comment_status' , type: 'string' },
             {name: 'Yes_comment_detail' , type: 'string' },
             {name: 'Yes_comment_type' , type: 'string' },
+            {name: 'Yes_comment_text_other' , type: 'string' },
             {name: 'comment_room' , type: 'string' },
             {name: 'comment_spa' , type: 'string' },
             {name: 'comment_fitness' , type: 'string' },
@@ -74,6 +75,7 @@ $filters="
             {dataIndex: 'Yes_comment_status' , type: 'string' }, 
             {dataIndex: 'Yes_comment_detail' , type: 'string' }, 
             {dataIndex: 'Yes_comment_type' , type: 'string' },
+            {dataIndex: 'Yes_comment_text_other' , type: 'string' },
             {dataIndex: 'comment_room' , type: 'string' },
             {dataIndex: 'comment_spa' , type: 'string' },
             {dataIndex: 'comment_fitness' , type: 'string' },
@@ -107,15 +109,15 @@ Ext.onReady(function(){
 	var show_color=function(v,para,r){
         if(v==='3')
         { 
-        	var hp = 'พึ่งพอใจมาก';
+        	var hp = '<img src="../images/16/3.png"  height="16" width="16">';
         	return '<div class="control" control="popup" ><span style="color:green;font-weight:bold">' + hp + '</span></div>';}
     	if(v==='2')
         { 
-        	var s = 'เฉยๆ';
+        	var s = '<img src="../images/16/2.png"  height="16" width="16">';
         	return '<div class="control" control="popup" ><span style="color:Blue;font-weight:bold">' + s + '</span></div>';}
     	if(v==='1')
         { 
-        	var bad = 'แย่';
+        	var bad = '<img src="../images/16/1.png"  height="16" width="16">';
         	return '<div class="control" control="popup" ><span style="color:red;font-weight:bold">' + bad + '</span></div>';}
     }
 
@@ -139,6 +141,7 @@ Ext.onReady(function(){
     	var fitness = r.data['Yes_comment_fitness'];
     	var restaurant = r.data['Yes_comment_restaurant'];
     	var other = r.data['Yes_comment_other'];
+    	var text_otherText = r.data['Yes_comment_text_other'];
     	if (room =='1') 
     		{
     			var text_room = '[Room]';
@@ -229,8 +232,8 @@ Ext.onReady(function(){
 			 {dataIndex: 'Yes_comment_name', id: 'Yes_comment_name', width:20, header: 'ชื่อลูกค้า', renderer:show_click},
 			 {dataIndex: 'Yes_comment_room', id: 'Yes_comment_room', width:4, header: 'ห้อง', renderer:show_click},
 			 {dataIndex: 'Yes_comment_country', id: 'Yes_comment_country', width:4, header: 'สัญชาติ', renderer:show_click},
-			 {dataIndex: 'Yes_comment_level', id: 'Yes_comment_level', width:9, header: 'สถานะแสดงความพึงพอใจ', renderer:show_color},
-			 {dataIndex: 'Yes_comment_type', id: 'Yes_comment_type', width:9, header: 'ปัญหา', renderer:check_pro},
+			 {dataIndex: 'Yes_comment_level', id: 'Yes_comment_level', width:3, header: 'สถานะแสดงความพึงพอใจ', renderer:show_color},
+			 {dataIndex: 'Yes_comment_type', id: 'Yes_comment_type', width:8, header: 'ปัญหา', renderer:check_pro},
 			 {dataIndex: 'Yes_comment_id', id: 'Yes_comment_id', width:25, header: 'สถานที่มีปัญหา', renderer:check_status},	
 			 {dataIndex: 'Yes_comment_detail', id: 'Yes_comment_detail', width:30, header: 'รายระเอียด', renderer:show_click},	
 			 {dataIndex: 'see1by', id: 'see1by', width:10, header: 'ผู้ติดต่อผสานงาน', renderer:show_click},	
@@ -244,22 +247,12 @@ Ext.onReady(function(){
 						if(rec.data["Yes_comment_status"]=='') {
 							this.items[0].tooltip = 'ปัญหายังไม่ได้แก้ไข (ปัญหาหมายเลขที่ '+rec.data["Yes_comment_id"]+')';
 							//console.log(v, meta, rec);
-							return '10';
-						}
-						if(rec.data["Yes_comment_status"]=='P') {
-							this.items[0].tooltip = 'ปัญหายังไม่ได้แก้ไข (ปัญหาหมายเลขที่ '+rec.data["Yes_comment_id"]+')';
-							//console.log(meta);
-							return '10';
-						}
-						if(rec.data["Yes_comment_status"]=='W') {
-							this.items[0].tooltip = 'ปัญหายังไม่ได้แก้ไข (ปัญหาหมายเลขที่ '+rec.data["Yes_comment_id"]+')';
-							//console.log(meta);
-							return '10';
+							return 'waiting';
 						}
 						else{
 							this.items[0].tooltip = 'สถานะ : แก้ปัญหาเรียบร้อย';
 							//console.log(rec);
-							return '10';
+							return 'enable';
 						}
 					},handler:function(grid, rowIndex, colIndex) {
 							var s = grid.getStore().getAt(rowIndex);
@@ -619,7 +612,8 @@ var formman = new Ext.FormPanel({
 								collapsed: false,
 								items:[{
 									xtype:'textfield',
-									id : '123',
+									id : 'Yes_comment_text_other',
+									name: 'Yes_comment_text_other',
 									anchor:'0'
 								}]
 							}]
@@ -655,7 +649,7 @@ var formman = new Ext.FormPanel({
 							layout: 'form',labelWidth:70,border:false,defaults: {anchor:'-5'},
 							items:[{
 								xtype:'fieldset',anchor:'100%',
-								title: 'สถานที่มีปัญหา - วิธีแก้ไขปัญหา',
+								title: 'สถานที่มีปัญหา - วิธีแก้ไขปัญหา - ผแนก - ผู้รับเรื่อง - เวลา',
 								autoHeight:true,readOnly:true,
 								defaults: {anchor:'-5'},
 								defaultType: 'textfield',											
