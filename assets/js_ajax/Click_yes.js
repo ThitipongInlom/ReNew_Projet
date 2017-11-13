@@ -27,7 +27,7 @@ $(document).ready(function() {
 			$("#yes_open_model").attr('data-backdrop', 'static');
 		}
 	});
-
-
-
 });	
+
+
+

@@ -46,11 +46,12 @@ $('#send_data').click(function() {
 	}
 
 	var detail = document.getElementById('detail').value; 
+	var text_other = document.getElementById('text_other').value;
 	$.ajax({
 		url: 'Welcome/Click_Yes',
 		type: 'POST',
 		cache: false,
-		data: {'data_check':data_check,'room':room,'spa':spa,'fitness':fitness,'restaurant':restaurant,'other':other,'detail':detail},
+		data: {'data_check':data_check,'room':room,'spa':spa,'fitness':fitness,'restaurant':restaurant,'other':other,'detail':detail,'text_other':text_other},
 		success: function(result){
 			$.getJSON('Welcome/Data_Alert', function(result) {
 	    	alertify.defaults.theme.ok = "btn btn-primary";

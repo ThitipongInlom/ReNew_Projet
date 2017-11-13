@@ -150,6 +150,8 @@
 <button type="button" class="btn btn-success btn-lg" id="yes_open_model" ><?php echo $this->lang->line('yes'); ?></button>
 <button type="button" class="btn btn-danger btn-lg" id="no"><?php echo $this->lang->line('no'); ?></button>
 </div>
+
+<!--
 <hr style="background: #ffffff">
 <div align="center">
   <h4 style="color: #ffffff;"><?php echo $this->lang->line('promotion'); ?>
@@ -181,6 +183,7 @@
 <?php } ?>
 <div>
 </div>
+-->
 
 <!-- Modal -->
 <div class="modal fade" id="Yes" tabindex="-1" role="dialog" aria-labelledby="titlemodal" >
@@ -208,7 +211,7 @@
                     <label for="fitness" style="padding-left: 10px; font-size: 18px;"><?php echo $this->lang->line('fitness'); ?></label>
                 </div>
                 <div class="checkbox icheck">
-                    <input type="checkbox" class="check_data" id="other">
+                    <input type="checkbox" class="check_data_other" id="other">
                     <label for="other" style="padding-left: 10px; font-size: 18px;"><?php echo $this->lang->line('other'); ?></label>
                 </div>
               </div>
@@ -221,6 +224,9 @@
                 <div class="checkbox icheck">
                     <input type="checkbox" class="check_data" id="restaurant">
                     <label for="restaurant" style="padding-left: 10px; font-size: 18px;"><?php echo $this->lang->line('restaurant'); ?></label>
+                </div>
+                <div class="Text_other">
+                    <input type="text" name="text_other" id="text_other" class="form-control" placeholder="<?php echo $this->lang->line('other'); ?>">
                 </div>
               </div>
             </div>
@@ -260,12 +266,23 @@
 <!-- include the script -->
 <script src="<?php echo base_url().'assets/alertify/alertify.min.js'; ?>"></script>
 <script type="text/javascript">
+function forcustext() {
+   if(document.getElementById('other').checked){
+     $("#text_other").focus();
+    }
+  }  
 $(function () {
     $('.check_data').iCheck({
       checkboxClass: 'icheckbox_square-blue',
       radioClass: 'iradio_square-blue',
       increaseArea: '20%' // optional
     });
+    $(".check_data_other").iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%'
+    });
+    $("#other").on("ifChanged", forcustext);
   });
 </script>
 </body>

@@ -1,9 +1,9 @@
 <?php  
 $lang['yes'] = 'Yes';
 $lang['Help_us_serve_you_better'] = 'Help us serve you better';
-$lang['select_one_of_satisfactory_level_below'] = 'Please Select Satisfactory Level Below';
-$lang['Pleasealert'] = 'เลือกระดับความพึงพอใจ';
-$lang['Problem_Found'] = 'Problem Found ?';
+$lang['select_one_of_satisfactory_level_below'] = 'Please select satisfactory level below.';
+$lang['Pleasealert'] = 'Please select satisfactory level.';
+$lang['Problem_Found'] = 'Problem found ?.';
 $lang['no'] = 'No';
 $lang['senddata'] = 'Send';
 $lang['other'] = 'Other';
@@ -16,7 +16,7 @@ $lang['hi'] = 'Hi';
 $lang['alert'] = 'Alert';
 $lang['detail'] = 'Detail';
 $lang['promotion'] = 'Promotion';
-$lang['texttatable'] = 'Please select a problem type';
+$lang['texttatable'] = 'Please select type(s) of problem.';
 
 
 ?>
