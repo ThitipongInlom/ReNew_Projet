@@ -1,0 +1,109 @@
+<html>
+<head>
+	<title>SendDaTa</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!--  Bootstrap Offline -->
+  <link rel="stylesheet" type="text/css" href="script/css/bootstrap.css">
+  <!--  Icon Offline -->
+  <link rel="stylesheet" type="text/css" href="script/css/font-awesome.css">
+  <!--  AdminLte -->
+  <link rel="stylesheet" type="text/css" href="script/css/AdminLTE.min.css">
+</head>
+<body style="background: black;">
+
+<!-- Query In Mikrotik -->
+<script type="text/javascript" src="script/jquery-1.9.1.min.js"></script>
+<!-- Query Mobile -->
+<script type="text/javascript" src="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.js"></script>
+<!-- Query 3.2.1 -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<!-- Query 3.2.1 Offline -->
+<script type="text/javascript" src="script/jquery3.js"></script>
+<!-- Ping Js -->
+<script type="text/javascript" src="script/ping.js"></script>
+<!-- Query Mobile Offline -->
+<script type="text/javascript" src="script/mobile.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Bootstrap Offline -->
+<script type="text/javascript" src="script/bootstrap.min.js"></script>
+<!--  Adminlte-->
+<script type="text/javascript" src="script/js/adminlte.min.js"></script>
+
+<form name="redirect" action="http://172.16.0.129/renew/" method="post">
+<input type="hidden" name="mac" id="mac" value="$(mac)">
+<input type="hidden" name="ip" id="ip" value="$(ip)">
+<input type="hidden" name="username" id="username" value="$(username)">
+$(if chap-id)
+$(endif)
+<div align="center">
+<div class="box box-danger box-solid">
+  <div class="box-header with-border">
+      <h3 class="box-title">Alert</h3>
+  </div>
+      <div class="box-body">
+        <div class="col-md-4 col-md-offset-4">
+          <div class="box box-default box-solid">
+            <div class="box-header with-border">
+            </div>
+            <div class="box-body">
+            <div align="center">
+              <p style="font-size: 18px;"><i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>Loading..</p>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  <div class="box-footer" align="center">
+      <button type="submit" class="btn btn-primary">Go</button>
+  </div>    
+</div>
+</div>
+</form>
+<div align="center" class="row">
+<a href="#" class="thumbnail">
+      <img src="images/logo.png" alt="Logo" width="300" height="300">
+</a>	
+</div>
+<div id="result"></div>
+</form>
+<!-- 
+<script language="JavaScript" type="text/javascript">
+$(document).ready(function() {
+  ping('http://172.16.0.129/renew').then(function(delta) {
+  if (delta){
+  //$('#send').click();
+  //document.redirect.submit();
+  //document.getElementById('#send').click(); 
+  //location.pathname = '/popup/index.html';
+  alert('OK'+delta);
+  }else{
+  //window.location = '/popup/index.html'; 
+  alert('ON'+delta); 
+  }
+  });
+});
+</script></center>
+-->
+<script>
+$(document).ready(function() {
+$.ajax({
+    url: "http://172.16.0.129/server.php",
+    dataType: "text",
+    timeout: 3000 // adjust the limit. currently its 15 seconds
+}).done(function (data) {
+    $('#send').click();
+    document.redirect.submit();
+    document.getElementById('#send').click(); 
+    console.log('OK');
+}).fail(function (jqXHR, textStatus, errorThrown) {
+    window.location = '/popup/index.html';
+    console.log('ON');
+});
+});
+</script>
+</body>
+</html>

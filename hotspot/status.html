@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<title>WiFi : Status </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="images/favicon11.ico" type="image/x-icon">
+<link rel="icon" href="images/favicon1.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="jquery.vegas.min.css">
+<script type="text/javascript" src="script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="script/jquery.vegas.min.js"></script>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="script.js"></script>
+
+
+<script language="JavaScript">
+<!--
+$(if advert-pending == 'yes')
+    var popup = '';
+    function focusAdvert() {
+	if (window.focus) popup.focus();
+    }
+    function openAdvert() {
+	popup = open('$(link-advert)', 'hotspot_advert', '');
+	setTimeout("focusAdvert()", 1000);
+    }
+$(endif)
+    function openLogout() {
+	if (window.name != 'hotspot_status') return true;
+        open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=280,height=250');
+	window.close();
+	return false;
+    }
+//-->
+</script>
+
+
+</head>
+<body 
+$(if advert-pending == 'yes')
+	onLoad="openAdvert()"
+$(endif)
+>
+
+
+	<div id="wrapper">
+	<form action="$(link-logout)" class="login-form" name="logout" onSubmit="return openLogout()">
+
+
+		  <div class="header">
+				<div id="logo"><img src="images/logo.png" alt="WiFi login" width="250"></div>
+			<h3 style="padding-top:5px;">
+			$(if login-by == 'trial')
+				 Welcome trial user! 
+			$(elif login-by != 'mac')
+				 Welcome $(username)! 
+			$(endif)
+			
+			</h3>	
+			
+			</div>
+		  <div class="content">
+
+				<table border="1">
+
+					<tr><td align="right">IP address:</td><td>$(ip)</td></tr>
+					<tr><td align="right">bytes up/down:</td><td>$(bytes-in-nice) / $(bytes-out-nice)</td></tr>
+				$(if session-time-left)
+					<tr><td align="right">connected / left:</td><td>$(uptime) / $(session-time-left)</td></tr>
+				$(else)
+					<tr><td align="right">connected:</td><td>$(uptime)</td></tr>
+				$(endif)
+				$(if blocked == 'yes')
+					<tr><td align="right">status:</td><td><div style="color: #FF8080">
+				<a href="$(link-advert)" target="hotspot_advert">advertisement</a> required</div></td>
+				$(elif refresh-timeout)
+					<tr><td align="right">status refresh:</td><td>$(refresh-timeout)</td>
+				$(endif)
+
+				</table>				
+
+			</div>
+
+			<div class="footer">
+				 
+$(if login-by-mac != 'yes')
+
+<!-- user manager link. if user manager resides on other router, replace $(hostname) by its address
+<button onclick="document.location='http://$(hostname)/user?subs='; return false;">status</button>
+<!-- end of user manager link -->
+<button type="submit"  class="button" style="width:100px;" value="Log Off"> Log Off </button>
+$(endif)
+			</div>
+			
+
+  </form>
+</div>
+
+$(if error)<br /><div style="color: #FF8080; font-size: 9px">$(error)</div>$(endif)
+
+</body>
+</html>
+

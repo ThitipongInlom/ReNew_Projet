@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<title>WiFi : Login </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="images/favicon11.ico" type="image/x-icon">
+<link rel="icon" href="images/favicon1.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="jquery.vegas.min.css">
+<script type="text/javascript" src="script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="script/jquery.vegas.min.js"></script>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="script.js"></script>
+
+</head>
+
+<body>
+$(if chap-id)
+	<form name="sendin" action="$(link-login-only)" method="post">
+		<input type="hidden" name="username" />
+		<input type="hidden" name="password" />
+		<input type="hidden" name="dst" value="$(link-orig)" />
+		<input type="hidden" name="popup" value="true" />
+	</form>
+	<script type="text/javascript">
+	<!--
+	    function doLogin() {
+		document.sendin.username.value = document.login.username.value.toLowerCase();
+		document.sendin.password.value = hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+		document.sendin.submit();
+		return false;
+	    }
+	//-->
+	</script>
+$(endif)
+
+	<div id="wrapper">
+		<form name="login" class="login-form" action="$(link-login-only)" method="post"
+			$(if chap-id) onSubmit="return doLogin()" $(endif)>
+			<input type="hidden" name="dst" value="$(link-orig)" />
+			<input type="hidden" name="popup" value="true" />
+
+
+		  <div class="header">
+				<div id="logo"><img src="images/logo.png" alt="WiFi login" width="250"></div>
+				<h3 style="padding-top:5px;">WiFi : Login</h3>	
+			
+			</div>
+		  <div class="content">
+				<div class="icon">
+					<div class="user-icon"></div>
+					<div class="pass-icon"></div>
+				</div>
+			
+				<input name="username" type="text" class="input username" value="$(username)"  onfocus="this.value=''" />
+				<input name="password" type="password" class="input password" value="" onfocus="this.value=''"  />
+				
+
+			</div>
+
+			<div class="footer">
+				 
+				  <button name="sm_login" type="submit" value="Login" class="button" style="width:100px;"> Login </button>
+
+
+				  $(if trial == 'yes')
+				  <a button class="button" style="text-decoration:none" type="button" href="$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)" style="width:100px;"> Free 5 hrs. </button></a>
+				  $(endif)
+			</div>
+			
+
+  </form>
+</div>
+
+$(if error)<br /><div style="color: #FF8080; font-size: 9px">$(error)</div>$(endif)
+<script type="text/javascript">
+<!--
+  document.login.username.focus();
+//-->
+</script>
+</body>
+</html>
+

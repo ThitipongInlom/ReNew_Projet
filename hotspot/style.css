@@ -1,0 +1,310 @@
+::selection {
+	color: #fff;
+	background: #f676b2; /* Safari */
+}
+::-moz-selection {
+	color: #fff;
+	background: #f676b2; /* Firefox */
+}
+
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight:300;
+	text-align: left;
+	text-decoration: none;
+}
+
+#wrapper {
+	/* Center wrapper perfectly */
+	width: 290px;
+
+	position: absolute;
+	left: 50%;
+	top: 0;
+	margin-left: -150px;
+	margin-top: -10px;
+}
+
+
+/*******************
+LOGIN FORM
+*******************/
+
+.login-form {
+	width: 290px;
+	margin: 0 auto;
+	position: relative;
+	z-index:5;
+	
+	background: #f3f3f3;  opacity:0.98; filter:alpha(opacity=98);
+	border: 1px solid #fff;
+	border-radius: 5px;
+	
+	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/*******************
+HEADER
+*******************/
+
+.login-form .header {
+	padding: 5px 20px 5px 20px;
+}
+
+.login-form .header h1 {
+	font-family: 'Bree Serif', serif;
+	font-weight: 300;
+	font-size: 28px;
+	line-height:30px;
+	color: #414848;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+	margin-bottom: 5px;
+}
+
+.login-form .header .description {
+	font-size: 14px;
+
+	line-height: 15px;
+	color: #678889;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+}
+
+
+/*******************
+CONTENT
+*******************/
+
+.login-form .content {
+	padding: 10px 20px 10px 20px;
+}
+
+/* Input field */
+.login-form .content .input {
+	width: 188px;
+	text-indent:40px;
+}
+
+.login-form .content .input, .remember {
+	padding: 15px 25px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+	color: #9d9e9e;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+	
+	background: #fff;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+}
+
+.input2 {
+	padding: 10px 10px;
+	width: 100px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 200;
+	font-size: 12px;
+	color: #9d9e9e;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+	
+	background: #fff;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+}
+
+.text {
+	font-size: 14px;
+	height:66px;
+	line-height: 15px;
+	color: #678889;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+}
+
+.text2,table {
+	font-size: 12px;
+	height:66px;
+	line-height: 15px;
+	color: #678889;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+}
+
+.login-form .content .password, .login-form .content .pass-icon, .remember {
+	margin-top: 15px;
+}
+
+.login-form .content .input:hover ,.input2:hover {
+	background: #dfe9ec;
+	color: #414848;
+}
+
+.login-form .content .input:focus,.input2:focus {
+	background: #dfe9ec;
+	color: #414848;
+	
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+}
+
+.icon {
+	display:block;
+	position:relative;
+}
+
+.user-icon, .pass-icon {
+	width:46px;
+	height:47px;
+	display:block;
+	/*left: 20px;*/
+	padding-right: 2px;
+	position:absolute;
+	z-index: 3;
+	
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+}
+
+.user-icon {
+	top:1px; 
+	background: rgba(65,72,72,0.75) url(images/user-icon.png) no-repeat center;	
+}
+
+.pass-icon {
+	top:50px;
+	background: rgba(65,72,72,0.75) url(images/pass-icon.png) no-repeat center;
+}
+
+/* Animation */
+.input,input2, .user-icon, .pass-icon, .button, .button2 {
+	transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+}
+
+/*******************
+FOOTER
+*******************/
+
+.login-form .footer {
+	padding: 15px 35px 10px 20px;
+	overflow: auto;
+	
+	background: #d4dedf;
+	border-top: 1px solid #fff;
+	
+	box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
+	-moz-box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
+	-webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
+}
+
+/* Login button */
+
+.button {
+	width:70px;
+}
+.button2 {
+	width:110px;
+}
+.button,.button2 {
+	padding: 10px 10px;
+	font-family: 'Bree Serif', serif;
+	font-weight: 300;
+	font-size: 18px;
+	color: #fff;
+	text-shadow: 0px 1px 0 rgba(0,0,0,0.25);
+	
+	background: #704614;
+	border: 1px solid #4F341C;
+	border-radius: 5px;
+	cursor: pointer;
+	
+	box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+	-moz-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+	-webkit-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+}
+
+.button:hover ,.button2:hover {
+	background: #92601f;
+	border: 1px solid rgba(256,256,256,0.75);
+	
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.button:focus,.button2:focus {
+	position: relative;
+	bottom: -1px;
+	background: #56c2e1;
+	box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+	-moz-box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+	-webkit-box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+	color: #815212;
+}
+
+body #logo img { height: auto;max-width:250px; }
+#header-top-bar { background:#000;width:100%; height:8px; position:absolute; top:0px; z-index:8; left:0px; opacity:0.85; filter:alpha(opacity=85);}
+
+
+/*======== 00. DEFAULT STYLES ==================*/
+
+
+/*======== 01. RETINA STYLES ==================*/
+@media screen and (-webkit-min-device-pixel-ratio: 1.5) {
+	
+}
+
+/*======== 02. BASE STYLES (1165px) ===========*/
+/* Note: Design for a width of 1165px */
+body:after {background-color: hsla(270,60%,40%,0.7);}
+html {-webkit-text-size-adjust: none;}
+body {max-width:100%; width:100%; }
+img {max-width:100%; height: auto; }
+#wrapper {-moz-transition: all .2s ease-in-out; -webkit-transition: all .2s ease-in-out; }
+
+/*======== 03. #DESKTOP (960px) ============*/
+/* Note: Design for a width of 960px */
+@media only screen and (min-width: 959px) and (max-width: 1165px) {
+body:after {background-color: hsla(270,60%,40%,0.7);}
+#wrapper {width:940px;}
+}
+
+/*======== 04. #Tablet (Portrait) ==============*/
+/* Note: Design for a width of 768px */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+body:after {background-color: hsla(270,60%,40%,0.7);}
+#wrapper { width: 750px; }
+}
+
+/*========= 05. #Mobile (Portrait) ============*/
+/* Note: Design for a width of 320px */
+@media only screen and (max-width: 767px) {
+body:after {background-color: hsla(90,60%,40%,0.7);}
+#wrapper { width: 300px; }
+
+/* ========= 06. #Mobile (Landscape) ============*/
+/* Note: Design for a width of 480px */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+body:after {background-color: hsla(150,50%,40%,0.7);}
+#wrapper { width: 420px; }
+}

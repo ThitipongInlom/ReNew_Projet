@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<title>WiFi : Logout </title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="images/favicon11.ico" type="image/x-icon">
+<link rel="icon" href="images/favicon1.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="jquery.vegas.min.css">
+<script type="text/javascript" src="script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="script/jquery.vegas.min.js"></script>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="script.js"></script>
+<script language="JavaScript">
+<!--
+    function openLogin() {
+	if (window.name != 'hotspot_logout') return true;
+	open('$(link-login)', '_blank', '');
+	window.close();
+	return false;
+    }
+//-->
+</script>
+</head>
+<body>
+
+
+	<div id="wrapper">
+
+	<form action="$(link-login)" class="login-form" name="login" onSubmit="return openLogin()">
+
+
+
+		 <div class="header">
+				<div id="logo"><img src="images/logo.png" alt="WiFi login" width="250"></div>
+                 
+				<h3 style="padding-top:5px;">you have just logged out</h3>			
+		</div>
+		<div class="content">
+
+<table class="tabula" border="1">  
+<tr><td align="right">user name</td><td>$(username)</td></tr>
+<tr><td align="right">IP address</td><td>$(ip)</td></tr>
+<tr><td align="right">MAC address</td><td>$(mac)</td></tr>
+<tr><td align="right">session time</td><td>$(uptime)</td></tr>
+$(if session-time-left)
+<tr><td align="right">time left</td><td>$(session-time-left)</td></tr>
+$(endif)
+<tr><td align="right">bytes up/down:</td><td>$(bytes-in-nice) / $(bytes-out-nice)</td></tr>
+</table>				
+
+		</div>
+
+		<div class="footer">
+				 
+			<button type="submit" class="button"  style="width:100px;" value="Login"> Login </button>
+		</div>
+			
+
+  </form>
+</div>
+
+
+</body>
+</html>
