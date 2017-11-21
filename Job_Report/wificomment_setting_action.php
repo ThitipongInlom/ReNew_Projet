@@ -1,7 +1,7 @@
 <?php  
-$host = '172.16.1.253';
+$host = '172.16.0.240';
 $username = 'root';
-$password = 'itminadthezign';
+$password = '';
 $db = 'new_projet'; 
 $conn = new mysqli($host, $username, $password, $db);
 if ($_POST['id']) {

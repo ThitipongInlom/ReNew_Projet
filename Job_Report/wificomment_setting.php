@@ -28,9 +28,9 @@
             </div>
             <div class="box-body">
 	        <?php  
-	        $host = '172.16.1.253';
+	        $host = '172.16.0.240';
 	        $username = 'root';
-	        $password = 'itminadthezign';
+	        $password = '';
 	        $db = 'new_projet'; 
 	        $conn = new mysqli($host, $username, $password, $db);
 	        $sql="SELECT * from set_level_below";
@@ -87,6 +87,7 @@
         <span class="glyphicon glyphicon-plus"></span>เพื่ม Promotion
       </button>
       </div>
+      <div class="overlay">
       <table id="promotion" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -118,6 +119,9 @@
         <?php } ?>      
         </tbody>
     </table>
+              
+            <i class="fa fa-refresh fa-spin"></i>
+            </div>
             </div>
         </div>
 	</div>

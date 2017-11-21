@@ -8,7 +8,7 @@ $systemcode="wificomment";
 $table="yes_comment";
 $field_id="Yes_comment_id";
 
-$department=($mode!="")?$s_users_dept=$_SESSION["login"]["dept"]:"";
+$department="IT";
 
 $id=$task_id;
 $status_type="tasks";
@@ -235,7 +235,7 @@ Ext.onReady(function(){
 			 {dataIndex: 'Yes_comment_level', id: 'Yes_comment_level', width:3, header: 'สถานะแสดงความพึงพอใจ', renderer:show_color},
 			 {dataIndex: 'Yes_comment_type', id: 'Yes_comment_type', width:8, header: 'ปัญหา', renderer:check_pro},
 			 {dataIndex: 'Yes_comment_id', id: 'Yes_comment_id', width:25, header: 'สถานที่มีปัญหา', renderer:check_status},	
-			 {dataIndex: 'Yes_comment_detail', id: 'Yes_comment_detail', width:30, header: 'รายระเอียด', renderer:show_click},	
+			 {dataIndex: 'Yes_comment_detail', id: 'Yes_comment_detail', width:29, header: 'รายระเอียด', renderer:show_click},	
 			 {dataIndex: 'see1by', id: 'see1by', width:10, header: 'ผู้ติดต่อผสานงาน', renderer:show_click},	
 			 {dataIndex: 'Yes_comment_status', id: 'Yes_comment_status', width:2, header: 'สถานะ', renderer:status_click},	
 			 			{
@@ -787,8 +787,9 @@ var formman = new Ext.FormPanel({
 								handler: function(){
 											formman.getForm().submit({	
 												url: '<?=$urlpost;?>', 
-	                    						waitMsg: 'บันทึก...',	
-												success: function(form, action){		
+	                    						waitMsg: 'บันทึก...',		
+												success: function(form, action){
+													console.log(form, action);			
 													win.hide();
 													search_data();
 												},
@@ -804,8 +805,6 @@ var formman = new Ext.FormPanel({
 			                        Ext.getCmp('comment_fitness').setValue('');
 			                        Ext.getCmp('comment_restaurant').setValue('');
 			                        Ext.getCmp('comment_other').setValue('');
-			                        //Ext.getCmp('see1by').setValue('');
-
 									win.hide();}
 							}
 				]
@@ -825,26 +824,6 @@ var formman = new Ext.FormPanel({
 			formman.getForm().reset();
 		}
 		win.show();	
-	}
-	var addTab=function(rowid){
-		var TabPanelman = Ext.getCmp('tab-job');
-		var tabidman = TabPanelman.findById('tab-document');
-        if(tabidman){ 			
-			TabPanelman.remove('tab-document', true); 
-			TabPanelman.remove('tab-comment', true); 
-		}
-			TabPanelman.add({
-				title: 'Comment',id:'tab-comment',iconCls: 'note',
-				layout:'fit',bodyStyle:'padding:0;', 
-				items:[new Ext.ux.IFrameComponent({id:"comment-"+rowid,url:'../notes/note.php?menu=<?=$menu?>&row_type=<?=$systemcode;?>&row_id='+rowid,frameBorder:0})]
-			}).show();	
-			TabPanelman.add({
-				title: 'Attach files',id:'tab-document',iconCls: 'attach',
-				layout:'fit',bodyStyle:'padding:0;',  
-				items:[new Ext.ux.IFrameComponent({id:"document"+rowid,url:'../document/document.php?menu=<?=$menu?>&row_type=<?=$systemcode;?>&row_id='+rowid,frameBorder:0})]
-			}).show();
-			TabPanelman.doLayout();	
-			TabPanelman.setActiveTab(0);
 	}
 
     var win;

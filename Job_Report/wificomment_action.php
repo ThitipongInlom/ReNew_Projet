@@ -152,7 +152,7 @@ if ($_GET['act']=="post") {
     }else{
         echo "No";
     }
-    print_r($_POST);
+    exit();
 }
 
 if ($_GET['act']=="status") {
