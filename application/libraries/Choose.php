@@ -18,8 +18,10 @@ class Choose
     	$row = $query->num_rows();
     	// $row == 1  Go To Return
     	if ($row ==1) {
+            $this->CI->session->set_userdata('choose', '0');
     		return;
     	}else{
+            $this->CI->session->set_userdata('choose', '1');
     		header("Location:  ../popup/index.html");
     	}	
     }

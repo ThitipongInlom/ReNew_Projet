@@ -14,7 +14,7 @@ $('#no').click(function() {
 	}
 	// Go Check Alert
 	if (data_check=='') {
-		$.getJSON('Welcome/Data_Alert', function(result) {
+		$.getJSON('index.php/Welcome/Data_Alert', function(result) {
     	alertify.defaults.theme.ok = "btn btn-primary";
 		alertify.defaults.theme.cancel = "btn btn-danger";
 		alertify.alert('', result.Text_Pleasealert);
@@ -31,7 +31,7 @@ $('#no').click(function() {
 				$.getJSON('index.php/Welcome/Data_Alert', function(result) {
 		    	alertify.defaults.theme.ok = "btn btn-primary";
 				alertify.defaults.theme.cancel = "btn btn-danger";
-				alertify.alert(result.Head_Data, result.Text_Data_Thank,function () {
+				alertify.alert('', result.Text_Data_Thank,function () {
 				// Send To Thezign
 			    window.location = '../popup/index.html';
 				});

@@ -55,7 +55,7 @@ class Get_airlink_model extends CI_Model {
 		$this->Check_mobile();
 
 		// Check User
-		//if (empty($this->session->Mikrotik)) {
+		if (empty($this->session->Mikrotik)) {
 		$sql = "SELECT * FROM voucher WHERE username ='".$username."'";
 		$query = $airlink->query($sql);
 		$row = $query->row();
@@ -68,14 +68,20 @@ class Get_airlink_model extends CI_Model {
 		$this->session->set_userdata('Mikrotik', $Mikrotik);	
 		$this->session->set_userdata('Data_Web', $result);
 		$this->Check_Post();
-		//}
+		}
 		
 		//AND isset($this->session->relogin)
-		if ($this->session->Mikrotik['username']!='') {
+		//print_r($this->session->all_userdata());
+		if ($this->session->Mikrotik AND $this->session->choose =='0') {
 			return;
-		}else{
-			header("Location:  ../popup/index2.php");
 		}
+		else{
+			//print_r($this->session->all_userdata());
+			//return;
+			echo "<script>window.location = '../popup/index.html';</script>";
+			//header("Location:  ../popup/index.html");
+		}
+		
 	}
 
 	public function unpack_serialize($data)

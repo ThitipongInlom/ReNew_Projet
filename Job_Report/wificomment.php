@@ -396,10 +396,6 @@ var loadDocData2Form = function(id){
 	} 
 	
 
-var formman = new Ext.FormPanel({
-		labelWidth: 80,border:true,iconCls:'card',
-		autoScroll:true,monitorValid:true,layout:'form',frame:false,
- });
 
     var viewport = new Ext.Viewport({
         layout:'border',
@@ -422,24 +418,7 @@ var formman = new Ext.FormPanel({
 
     });	
 
-        var cmd_count=function(){
-		var total=Ext.getCmp('data_id');
-		var all=((total.getValue()*1)>0)?total.getValue()*1:0;
-		Ext.Ajax.request({
-			method: 'GET',url:'<?=$urlaction;?>&act=count',
-			success: function(result,request){ 
-				if((result.responseText*1) != all){
-					total.setValue(result.responseText*1);
-					if(all>0){
-						playSound.play();
-						top.Ext.showMan.msg('Hi.. ',' Please check your job list, there are some new job now.');
-					}
-					search_data();
-				}else{
-				}
-			}
-		});
-	}
+   
 
 // Form Add   **********************************************************	
 	var formedit={
@@ -851,29 +830,7 @@ var formman = new Ext.FormPanel({
 		runner.start({run: search_data,interval:t});
 	}
 	autoRefresh();
-	var viewport = new Ext.Viewport({
-        layout:'border',
-		margins: '0 0 0 0',
-		border:false,
-        items:[
-					
-				  {
-						id: 'content-panel',
-						region: 'center', 
-						layout: 'card',
-						margins: '0 0 0 0',
-						title:'<?=$title;?>',
-						activeItem: 0,
-						border: false,
-						items: {
-							id:'main-view',
-							layout:'fit',
-							border: false,
-
-						}
-				  }
-         ]
-    });		
+	
 });  
 </script>
 </head>

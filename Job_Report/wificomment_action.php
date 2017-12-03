@@ -148,7 +148,7 @@ if ($_GET['act']=="post") {
     $id = $_POST['Yes_comment_id'];
     $rs = mysql_query("update yes_comment set see1by='$see1_by', comment_room='$room', comment_spa='$spa', comment_fitness='$fitness', comment_restaurant='$restaurant', comment_other='$other', see1date='$see1_date' , Yes_comment_status='$status' where Yes_comment_id='$id' ");
     if($rs){
-        echo "OK";
+        echo "{success:true}";
     }else{
         echo "No";
     }
