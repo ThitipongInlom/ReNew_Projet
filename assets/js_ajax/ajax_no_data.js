@@ -12,15 +12,9 @@ $('#no').click(function() {
 	if (sad.checked) {
 		var data_check = '1';
 	}
-	// Go Check Alert
-	if (data_check=='') {
-		$.getJSON('index.php/Welcome/Data_Alert', function(result) {
-    	alertify.defaults.theme.ok = "btn btn-primary";
-		alertify.defaults.theme.cancel = "btn btn-danger";
-		alertify.alert('', result.Text_Pleasealert);
-		console.log(result);
-    	});
-	}else{
+	if (data_check == '') {
+		var data_check = '0';
+	}
 		var data_send =  data_check;
 		$.ajax({
 			url: 'index.php/Welcome/Click_No',
@@ -38,5 +32,4 @@ $('#no').click(function() {
 				});	
 			}
 		});	
-	}
 });

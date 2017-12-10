@@ -18,10 +18,42 @@ class Choose
     	$row = $query->num_rows();
     	// $row == 1  Go To Return
     	if ($row ==1) {
-            $this->CI->session->set_userdata('choose', '0');
-    		return;
+            $query = $this->CI->db->get_where('maclock', array('mac' => $Mikrotik['mac']));
+            $rowch = $query->num_rows();
+            if ($rowch =='1') {
+                 $sessionData = $this->CI->session->all_userdata();
+                 foreach($sessionData as $key =>$val){
+                    if($key!='session_id' 
+                       && $key!='last_activity' 
+                       && $key!='ip_address' 
+                       && $key!='user_agent' 
+                       && $key!='admin_id'){
+                         $this->CI->session->unset_userdata($key);
+                     }
+                  }
+                header("Location:  ../popup/index.html");
+            }else{
+            $querytime = $this->CI->db->get('time_set');  
+            $settime = $querytime->result();
+            $today = date("Y-m-d H:i:s");
+            $data = array(
+            'mac' => $Mikrotik['mac'],
+            'maclock_time' => $settime[0]->time_data,
+            'maclock_check' => $today);
+            $this->CI->db->insert('maclock', $data);
+            return $row;
+            }
     	}else{
-            $this->CI->session->set_userdata('choose', '1');
+            $sessionData = $this->CI->session->all_userdata();
+                 foreach($sessionData as $key =>$val){
+                    if($key!='session_id' 
+                       && $key!='last_activity' 
+                       && $key!='ip_address' 
+                       && $key!='user_agent' 
+                       && $key!='admin_id'){
+                         $this->CI->session->unset_userdata($key);
+                     }
+                  }
     		header("Location:  ../popup/index.html");
     	}	
     }

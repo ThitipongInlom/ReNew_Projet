@@ -8,38 +8,7 @@ class Get_airlink_model extends CI_Model {
 			parent::__construct();
 			$this->load->library('session');
 			$this->load->library('choose');
-		}
-
-	public function Check_Post()
-		{
-			if (empty($_POST) or empty($this->session->Mikrotik)) {
-				header("Location:  ../popup/index.html");
-			}else{
-				return;
-			}
-		}
-
-	public function Check_mobile()
-			{
-			$browser = $this->agent->browser();
-			$mobile = $this->agent->mobile();
-			$platform = $this->agent->platform();
-			if ($platform == 'iOS') {
-				//$this->ios_Go();
-				return;
-				//redirect('Ios/index', 'refresh');
-			}else{
-				return;
-			}
-
-			}		
-
-	public function ios_Go()
-				{	
-					echo $this->session->sess_destroy();
-					//header("Location:  ../popup/index.html");
-					redirect('Ios/index', 'refresh');
-				}			
+		}			
 
 	public function Get_Data_model()
 	{
@@ -51,11 +20,8 @@ class Get_airlink_model extends CI_Model {
 		$ip  = $this->input->post('ip');
 		$username = $this->input->post('username');
 
-		// Check Mobile
-		$this->Check_mobile();
-
 		// Check User
-		if (empty($this->session->Mikrotik)) {
+		if (empty($this->session->Mikrotik['username'])) {
 		$sql = "SELECT * FROM voucher WHERE username ='".$username."'";
 		$query = $airlink->query($sql);
 		$row = $query->row();
@@ -63,25 +29,29 @@ class Get_airlink_model extends CI_Model {
 			'username' => $username, 
 			'ip'       => $ip,
 			'mac'      => $mac);
-	    $this->choose->Choose_user($row,$Mikrotik);
+	    $this->Choose_user($row,$Mikrotik);
 		$result = $this->unpack_serialize($row->profile);
 		$this->session->set_userdata('Mikrotik', $Mikrotik);	
 		$this->session->set_userdata('Data_Web', $result);
-		$this->Check_Post();
 		}
-		
-		//AND isset($this->session->relogin)
-		//print_r($this->session->all_userdata());
-		if ($this->session->Mikrotik AND $this->session->choose =='0') {
-			return;
-		}
-		else{
-			//print_r($this->session->all_userdata());
-			//return;
-			echo "<script>window.location = '../popup/index.html';</script>";
-			//header("Location:  ../popup/index.html");
-		}
-		
+		$MikrotikMac = $this->session->Mikrotik['mac'];
+		$query = $this->db->get_where('maclock', array('mac' => $MikrotikMac));
+        $rowch = $query->num_rows();
+        $today = date("Y-m-d");
+        if ($rowch =='1') {
+        	$query2 = $this->db->order_by('Yes_comment_timerecheck', 'DESC')->get_where('yes_comment', array('Yes_comment_mac' => $MikrotikMac,'Yes_comment_timerecheck' => $today));
+        	$rowres = $query2->num_rows();
+        	if ($rowres=='0') {
+        		return;
+        	}else{
+        	session_unset();
+            $this->session->sess_destroy();
+    		header("Location:  ../popup/index.html");	
+        	}
+        }else{
+        	return;
+        }
+
 	}
 
 	public function unpack_serialize($data)
@@ -119,6 +89,39 @@ class Get_airlink_model extends CI_Model {
 		return $node_data;
 		}
 	}
+
+	public function Choose_user($data,$Mikrotik)
+    {
+    	$result = $this->unpack_serialize($data->profile);
+
+    	$this->db->where("(Level_Below_data='".$Mikrotik['username']."' OR Level_Below_data='".$result['billingplan']."')", NULL, FALSE);
+    	$query = $this->db->get('set_level_below');
+    	$row = $query->num_rows();
+    	// $row == 1  Go To Return
+    	if ($row ==1) {
+            $query = $this->db->get_where('maclock', array('mac' => $Mikrotik['mac']));
+            $rowch = $query->num_rows();
+            if ($rowch =='1') {
+            	session_unset();
+                $this->session->sess_destroy();
+                header("Location:  ../popup/index.html");
+            }else{
+            $querytime = $this->db->get('time_set');  
+            $settime = $querytime->result();
+            $today = date("Y-m-d");
+            $data = array(
+            'mac' => $Mikrotik['mac'],
+            'maclock_time' => $settime[0]->time_data,
+            'maclock_check' => $today);
+            $this->db->insert('maclock', $data);
+            return $row;
+            }
+    	}else{
+    		session_unset();
+            $this->session->sess_destroy();
+    		header("Location:  ../popup/index.html");
+    	}	
+    }
 	
 
 }

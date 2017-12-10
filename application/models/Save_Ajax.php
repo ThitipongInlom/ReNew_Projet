@@ -12,6 +12,7 @@ class Save_Ajax extends CI_Model {
 		{
 			$Level = $this->input->post('data_send');
 			$today = date("Y-m-d H:i:s");
+        	$time = date('Y-m-d');
 			$data = array(
 			'Yes_comment_level' => $Level,	
 			'Yes_comment_username' => $this->session->Mikrotik['username'],
@@ -22,8 +23,10 @@ class Save_Ajax extends CI_Model {
        		'Yes_comment_mac'  => $this->session->Mikrotik['mac'],
        		'Yes_comment_instay' => $this->session->Data_Web['inout'],
        		'Yes_comment_type' => '0',
+       		'Yes_comment_timerecheck' => $time,
        		'Yes_comment_time' => $today);
 			$this->db->insert('yes_comment', $data);
+			session_unset();
 		}	
 
 	public function Save_DaTa_Yes()
@@ -37,6 +40,7 @@ class Save_Ajax extends CI_Model {
 			$detail = $this->input->post('detail');
 			$textother = $this->input->post('text_other');
 			$today = date("Y-m-d H:i:s");
+			$time = date('Y-m-d');
 			$data = array(
 			'Yes_comment_level'  => $Level,
 			'Yes_comment_username' => $this->session->Mikrotik['username'], 
@@ -54,11 +58,13 @@ class Save_Ajax extends CI_Model {
 			'Yes_comment_web'    => $this->session->Data_Web['web'],
 			'Yes_comment_type' => '1',
 			'Yes_comment_time'   => $today,
+			'Yes_comment_timerecheck' => $time,
 			'Yes_comment_mac'    => $this->session->Mikrotik['mac'],
 			'Yes_comment_text_other' => $textother,
 			'Yes_comment_detail' => $detail);
 			$this->db->insert('yes_comment', $data);
 			echo $this->lang->line('thank_you');
+			session_unset();
 		}	
 
 }
