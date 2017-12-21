@@ -21,7 +21,7 @@ class Get_airlink_model extends CI_Model {
 		$username = $this->input->post('username');
 
 		// Check User
-		if (empty($this->session->Mikrotik['username'])) {
+		if (empty($this->session->Mikrotik['username'])) {	
 		$sql = "SELECT * FROM voucher WHERE username ='".$username."'";
 		$query = $airlink->query($sql);
 		$row = $query->row();
