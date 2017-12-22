@@ -21,17 +21,9 @@ class Choose
             $query = $this->CI->db->get_where('maclock', array('mac' => $Mikrotik['mac']));
             $rowch = $query->num_rows();
             if ($rowch =='1') {
-                 $sessionData = $this->CI->session->all_userdata();
-                 foreach($sessionData as $key =>$val){
-                    if($key!='session_id' 
-                       && $key!='last_activity' 
-                       && $key!='ip_address' 
-                       && $key!='user_agent' 
-                       && $key!='admin_id'){
-                         $this->CI->session->unset_userdata($key);
-                     }
-                  }
-                header("Location:  ../popup/index.html");
+                session_unset();
+                $this->session->sess_destroy();
+                header("Location:  http://172.16.1.14/renew/index.php/Pomo/");
             }else{
             $querytime = $this->CI->db->get('time_set');  
             $settime = $querytime->result();
@@ -44,17 +36,9 @@ class Choose
             return $row;
             }
     	}else{
-            $sessionData = $this->CI->session->all_userdata();
-                 foreach($sessionData as $key =>$val){
-                    if($key!='session_id' 
-                       && $key!='last_activity' 
-                       && $key!='ip_address' 
-                       && $key!='user_agent' 
-                       && $key!='admin_id'){
-                         $this->CI->session->unset_userdata($key);
-                     }
-                  }
-    		header("Location:  ../popup/index.html");
+            session_unset();
+            $this->session->sess_destroy();
+            header("Location:  http://172.16.1.14/renew/index.php/Pomo/");
     	}	
     }
 

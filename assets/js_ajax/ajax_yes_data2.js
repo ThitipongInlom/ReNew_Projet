@@ -48,7 +48,7 @@ $('#send_data').click(function() {
 	var detail = document.getElementById('detail').value; 
 	var text_other = document.getElementById('text_other').value;
 	$.ajax({
-		url: 'index.php/Welcome/Click_Yes',
+		url: '../Welcome/Click_Yes',
 		type: 'POST',
 		cache: false,
 		data: {'data_check':data_check,'room':room,'spa':spa,'fitness':fitness,'restaurant':restaurant,'other':other,'detail':detail,'text_other':text_other},
@@ -58,7 +58,7 @@ $('#send_data').click(function() {
 			alertify.defaults.theme.cancel = "btn btn-danger";
 			alertify.alert('', result.Text_Data_Thank,function () {
 			// Send To Thezign
-			window.location = 'http://172.16.1.14/renew/index.php/Pomo/';
+			window.location = 'http://www.thezignhotel.com/';
 			});
 			});
 

@@ -17,17 +17,17 @@ $('#no').click(function() {
 	}
 		var data_send =  data_check;
 		$.ajax({
-			url: 'index.php/Welcome/Click_No',
+			url: '../Welcome/Click_No',
 			type: 'POST',
 			cache: false,
 			data: {data_send},
 			success: function(result){
-				$.getJSON('index.php/Welcome/Data_Alert', function(result) {
+				$.getJSON('../Welcome/Data_Alert', function(result) {
 		    	alertify.defaults.theme.ok = "btn btn-primary";
 				alertify.defaults.theme.cancel = "btn btn-danger";
 				alertify.alert('', result.Text_Data_Thank,function () {
 				// Send To Thezign
-			    window.location = 'http://172.16.1.14/renew/index.php/Pomo/';
+			    window.location = 'http://www.thezignhotel.com/';
 				});
 				});	
 			}

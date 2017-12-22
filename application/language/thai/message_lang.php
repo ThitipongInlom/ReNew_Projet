@@ -17,5 +17,6 @@ $lang['alert'] = 'แจ้งเตือน';
 $lang['detail'] = 'รายละเอียด';
 $lang['promotion'] = 'โปรโมชั่น';
 $lang['texttatable'] = 'กรุณาเลือกประเภทปัญหา';
+$lang['goweb'] = 'เว็บไซต์';
 
 ?>

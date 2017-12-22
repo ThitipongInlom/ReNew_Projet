@@ -44,9 +44,7 @@ class Get_airlink_model extends CI_Model {
         	if ($rowres=='0') {
         		return;
         	}else{
-        	session_unset();
-            $this->session->sess_destroy();
-    		header("Location:  ../popup/index.html");	
+    		header("Location:  http://172.16.1.14/renew/index.php/Pomo/");	
         	}
         }else{
         	return;
@@ -103,8 +101,8 @@ class Get_airlink_model extends CI_Model {
             $rowch = $query->num_rows();
             if ($rowch =='1') {
             	session_unset();
-                $this->session->sess_destroy();
-                header("Location:  ../popup/index.html");
+            	$this->session->sess_destroy();
+            	header("Location:  http://172.16.1.14/renew/index.php/Pomo/");
             }else{
             $querytime = $this->db->get('time_set');  
             $settime = $querytime->result();
@@ -119,7 +117,7 @@ class Get_airlink_model extends CI_Model {
     	}else{
     		session_unset();
             $this->session->sess_destroy();
-    		header("Location:  ../popup/index.html");
+    		header("Location:  http://172.16.1.14/renew/index.php/Pomo/");
     	}	
     }
 	

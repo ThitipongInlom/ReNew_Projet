@@ -25,8 +25,7 @@ class Save_Ajax extends CI_Model {
        		'Yes_comment_type' => '0',
        		'Yes_comment_timerecheck' => $time,
        		'Yes_comment_time' => $today);
-			$this->db->insert('yes_comment', $data);
-			session_unset();
+			$this->db->insert('no_comment', $data);
 		}	
 
 	public function Save_DaTa_Yes()
@@ -64,7 +63,6 @@ class Save_Ajax extends CI_Model {
 			'Yes_comment_detail' => $detail);
 			$this->db->insert('yes_comment', $data);
 			echo $this->lang->line('thank_you');
-			session_unset();
 		}	
 
 }

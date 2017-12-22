@@ -17,6 +17,7 @@ $lang['alert'] = 'Alert';
 $lang['detail'] = 'Detail';
 $lang['promotion'] = 'Promotion';
 $lang['texttatable'] = 'Please select type(s) of problem.';
+$lang['goweb'] = 'Website';
 
 
 ?>
