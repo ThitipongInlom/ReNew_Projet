@@ -35,6 +35,7 @@ class Get_airlink_model extends CI_Model {
 		$this->session->set_userdata('Data_Web', $result);
 		}
 		$MikrotikMac = $this->session->Mikrotik['mac'];
+		$Mikrotikusername = $this->session->Mikrotik['username'];
 		$query = $this->db->get_where('maclock', array('mac' => $MikrotikMac));
         $rowch = $query->num_rows();
         $today = date("Y-m-d");
@@ -44,7 +45,7 @@ class Get_airlink_model extends CI_Model {
         	if ($rowres=='0') {
         		return;
         	}else{
-    		header("Location:  http://172.16.1.14/renew/index.php/Pomo/");	
+    		header("Location:  http://172.16.1.14/renew/index.php/Promo/");	
         	}
         }else{
         	return;
@@ -73,10 +74,10 @@ class Get_airlink_model extends CI_Model {
 		if ($node!='') {
 		preg_match("/^(....) (....) (.......................) (.*)/", $node, $outnote);
 		$node_data = array(
-			'room' => $outnote[1], 
-			'country' => $outnote[2],
-			'inout' => $outnote[3],
-			'web' => $outnote[4]);
+			'room' => /*$outnote[1]*/ '', 
+			'country' => /*$outnote[2]*/ '',
+			'inout' => /*$outnote[3]*/ '',
+			'web' => /*$outnote[4]*/ '');
 		return $node_data;
 		}else{
 		$node_data = array(
@@ -100,16 +101,16 @@ class Get_airlink_model extends CI_Model {
             $query = $this->db->get_where('maclock', array('mac' => $Mikrotik['mac']));
             $rowch = $query->num_rows();
             if ($rowch =='1') {
-            	session_unset();
-            	$this->session->sess_destroy();
-            	header("Location:  http://172.16.1.14/renew/index.php/Pomo/");
+            	//session_unset();
+            	//$this->session->sess_destroy();
+            	header("Location:  http://172.16.1.14/renew/index.php/Promo/");
             }else{
             $querytime = $this->db->get('time_set');  
             $settime = $querytime->result();
             $today = date("Y-m-d");
             $data = array(
             'mac' => $Mikrotik['mac'],
-            'maclock_time' => $settime[0]->time_data,
+            'username' => $Mikrotik['username'],
             'maclock_check' => $today);
             $this->db->insert('maclock', $data);
             return $row;
@@ -117,7 +118,7 @@ class Get_airlink_model extends CI_Model {
     	}else{
     		session_unset();
             $this->session->sess_destroy();
-    		header("Location:  http://172.16.1.14/renew/index.php/Pomo/");
+    		header("Location:  http://172.16.1.14/renew/index.php/Promo/");
     	}	
     }
 	

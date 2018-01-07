@@ -6,14 +6,11 @@ class Language extends CI_Controller
         parent::__construct();  
         $this->lang->load('message','english'); 
         $this->load->library('session');
-        //$this->load->library('../controllers/Welcome');
     }
 
     function switchLang($language = "") {
-        
         $language = ($language != "") ? $language : "english";
         $this->session->set_userdata('site_lang', $language);
-        //session_unset();
     }
 }
 ?>

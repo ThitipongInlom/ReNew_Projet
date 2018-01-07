@@ -10,8 +10,10 @@ class Checkpomo_model extends CI_Model {
 
 	public function getpomo()
 	{
-		$username = $this->session->Data_Web['billingplan'];
-		$query = $this->db->get_where('set_level_below', array('Level_Below_data' => $username));
+		$grop = $this->session->Data_Web['billingplan'];
+		$user = $this->session->Mikrotik['username'];
+		$where = "Level_Below_data LIKE '$grop' OR  Level_Below_data LIKE '$user'";
+		$query = $this->db->query("SELECT * FROM `set_level_below` WHERE `Level_Below_data` LIKE '$grop' OR `Level_Below_data` LIKE '$user'");
 		$numrow = $query->num_rows();
 		return $numrow;
 	}

@@ -58,8 +58,8 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div align="center">
-				<?php  
-				if ($checkrow =='1') {
+				<?php 
+				if ($checkrow==1) {	
 				echo 
 				'<a href="'.site_url('index.php/Pomo/blackcomment').'">
 				<button type="button" class="btn btn-danger">'.$this->lang->line("Problem_Found").'</button>
@@ -71,6 +71,7 @@
 				</a>
 			</div>
 		</div>	
+	<?php print_r($this->session->all_userdata()); ?>	
 	</div>
 	<!-- jQuery 3 Online -->
 	<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>

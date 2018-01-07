@@ -21,8 +21,8 @@ class Choose
             $query = $this->CI->db->get_where('maclock', array('mac' => $Mikrotik['mac']));
             $rowch = $query->num_rows();
             if ($rowch =='1') {
-                session_unset();
-                $this->session->sess_destroy();
+                //session_unset();
+                //$this->session->sess_destroy();
                 header("Location:  http://172.16.1.14/renew/index.php/Pomo/");
             }else{
             $querytime = $this->CI->db->get('time_set');  
@@ -30,14 +30,14 @@ class Choose
             $today = date("Y-m-d H:i:s");
             $data = array(
             'mac' => $Mikrotik['mac'],
-            'maclock_time' => $settime[0]->time_data,
+            'username' => $Mikrotik['username'],
             'maclock_check' => $today);
             $this->CI->db->insert('maclock', $data);
             return $row;
             }
     	}else{
-            session_unset();
-            $this->session->sess_destroy();
+            //session_unset();
+            //$this->session->sess_destroy();
             header("Location:  http://172.16.1.14/renew/index.php/Pomo/");
     	}	
     }

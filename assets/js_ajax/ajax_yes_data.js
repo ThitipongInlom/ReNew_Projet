@@ -58,7 +58,7 @@ $('#send_data').click(function() {
 			alertify.defaults.theme.cancel = "btn btn-danger";
 			alertify.alert('', result.Text_Data_Thank,function () {
 			// Send To Thezign
-			window.location = 'http://172.16.1.14/renew/index.php/Pomo/';
+			window.location = 'http://172.16.1.14/renew/index.php/Promo/';
 			});
 			});
 
